@@ -4,12 +4,14 @@ import commonStyles from '../components/commonStyles'
 import { Formik } from 'formik';
 import * as yup from 'yup';
 
+import { useNavigation } from '@react-navigation/native';
+
 interface FormValues {
   user: string;
   password: string;
 }
 
-const Authentication = () => {
+const Authentication: React.FC = () => {
 
   const validationSchema = yup.object().shape({
     user: yup.string().required('Username is required'),
@@ -20,6 +22,8 @@ const Authentication = () => {
     // Handle form submission here, e.g., send data to an API
     console.log('Form submitted with values:', values);
   };
+
+  const navigation = useNavigation();
 
   return (
      <ScrollView>
@@ -68,9 +72,9 @@ const Authentication = () => {
 
         <View style={styles.foot}>
           <Text style={styles.text}>Don’t have an account yet? </Text>
-          <Pressable>
-            <Text style={styles.signupText}> SIGN UP</Text>
-          </Pressable>
+          <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+  <Text style={styles.signupText}> SIGN UP</Text>
+</TouchableOpacity>
         </View>
       </View>
     </ScrollView>

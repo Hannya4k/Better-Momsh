@@ -11,8 +11,8 @@ function AppNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Login">
-        <Stack.Screen name="Login" component={Authentication} />
-        <Stack.Screen name="SignUp" component={SignUp} />
+        <Stack.Screen name="Login" component={Authentication} options={{header: () => null}} />
+        <Stack.Screen name="SignUp" component={SignUp} options={{header: () => null}} />
       </Stack.Navigator>
     </NavigationContainer>
   );
