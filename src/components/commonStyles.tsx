@@ -6,7 +6,7 @@ const commonStyles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     backgroundColor: '#fff',
-    height: '100%',
+    height: '100%'    ,
     width: '100%',
   },
   boxButton: {

@@ -1,19 +1,22 @@
-import { ScrollView, StyleSheet, Text, View, Image, TextInput, TouchableOpacity, Pressable } from 'react-native'
-import React from 'react'
-import commonStyles from '../components/commonStyles'
+import React from 'react';
+import { ScrollView, StyleSheet, Text, View, Image, TextInput, TouchableOpacity, Pressable } from 'react-native';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 
+
 interface FormValues {
-  user: string;
+  email: string;
   password: string;
+  retypePassword: string;
 }
 
-const Authentication = () => {
-
+const SignUp: React.FC = () => {
   const validationSchema = yup.object().shape({
-    user: yup.string().required('Username is required'),
+    email: yup.string().email('Invalid email').required('Email is required'),
     password: yup.string().required('Password is required'),
+    retypePassword: yup.string()
+      .oneOf([yup.ref('password'), null as any], 'Passwords must match')
+      .required('Retype Password is required'),
   });
 
   const handleSubmit = (values: FormValues) => {
@@ -22,33 +25,33 @@ const Authentication = () => {
   };
 
   return (
-     <ScrollView>
-      <View style={commonStyles.container}>
+    <ScrollView>
+      <View style={styles.container}>
         <View>
-          <Image source={require('../../assets/bg-graphic.png')} style={styles.bg} />
+          <Image source={require('../../../assets/bg-graphic.png')} style={styles.bg} />
         </View>
         <View style={styles.logo}>
-          <Image source={require('../../assets/logo/logo-header.png')} />
+          <Image source={require('../../../assets/logo/logo-header.png')} />
         </View>
 
         <Formik
-          initialValues={{ user: '', password: '' }}
+          initialValues={{ email: '', password: '', retypePassword: '' }}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
           {({ handleChange, handleSubmit, values, errors }) => (
             <View style={styles.form}>
-              <Text style={styles.headerText}>Login</Text>
-              <Text style={styles.text}>Please log in to continue.</Text>
+              <Text style={styles.headerText}>Sign Up</Text>
+              <Text style={styles.text}>Fill out the necessary information to start using our app.</Text>
 
               <TextInput
                 style={styles.textInput}
-                placeholder='Username'
-                // label='Username'
-                onChangeText={handleChange('user')}
-                value={values.user}
+                placeholder='Email'
+                onChangeText={handleChange('email')}
+                value={values.email}
+                keyboardType='email-address'
               />
-              {errors.user && <Text style={styles.errorText}>{errors.user}</Text>}
+              {errors.email && <Text style={styles.errorText}>{errors.email}</Text>}
 
               <TextInput
                 style={styles.textInput}
@@ -59,17 +62,26 @@ const Authentication = () => {
               />
               {errors.password && <Text style={styles.errorText}>{errors.password}</Text>}
 
-              <TouchableOpacity onPress= {() => handleSubmit()} style={styles.loginBtn} >
-                <Text style={styles.loginText}>LOG IN</Text>
+              <TextInput
+                style={styles.textInput}
+                placeholder='Retype Password'
+                onChangeText={handleChange('retypePassword')}
+                value={values.retypePassword}
+                secureTextEntry
+              />
+              {errors.retypePassword && <Text style={styles.errorText}>{errors.retypePassword}</Text>}
+
+              <TouchableOpacity onPress={() => handleSubmit()} style={styles.loginBtn}>
+                <Text style={styles.loginText}>SIGN UP</Text>
               </TouchableOpacity>
             </View>
           )}
         </Formik>
 
         <View style={styles.foot}>
-          <Text style={styles.text}>Don’t have an account yet? </Text>
+          <Text style={styles.text}>Already have an account? </Text>
           <Pressable>
-            <Text style={styles.signupText}> SIGN UP</Text>
+            <Text style={styles.signupText}>LOG IN</Text>
           </Pressable>
         </View>
       </View>
@@ -77,10 +89,9 @@ const Authentication = () => {
   );
 };
 
-export default Authentication
+export default SignUp;
 
 const styles = StyleSheet.create({
- 
   logo: {
     height: 130,
     marginTop: 125,
@@ -95,36 +106,22 @@ const styles = StyleSheet.create({
     fontSize: 22,
     color: '#F08C8A',
     marginBottom: 10,
-    marginLeft: 10,
   },
   text: {
     fontSize: 14,
     fontWeight: '500',
     marginBottom: 15,
-    marginLeft: 10,
     color: '#424242',
   },
-  textInput: {
-    borderRadius: 20,
-    width: 270,
-    height: 48,
-    margin: 10,
-    elevation: 10,
-    backgroundColor: 'white',
-    padding: 16,
-  },
-
   form: {
     marginBottom: 100,
-    height: 300,
+    height: 400,
   },
-  
   signupText: {
     color: '#FDC380',
     fontWeight: '700',
     fontSize: 14,
   },
-
   foot: {
     flex: 1,
     flexDirection: 'row',
@@ -135,7 +132,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     width: 134,
     height: 47,
-    marginLeft: 145,
+    marginLeft: 140,
     marginTop: 15,
     paddingVertical: 12,
     paddingHorizontal: 16,
@@ -148,6 +145,22 @@ const styles = StyleSheet.create({
   },
   errorText: {
     color: 'red',
-    marginLeft: 10,
   },
-})
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    height: '100%',
+    width: '100%',
+  },
+  textInput: {
+    borderRadius: 20,
+    width: 263,
+    height: 48,
+    margin: 10,
+    elevation: 10,
+    backgroundColor: 'white',
+    padding: 16,
+  },
+});
+
