@@ -3,6 +3,7 @@ import React from 'react'
 import commonStyles from '../components/commonStyles'
 import { Formik } from 'formik';
 import * as yup from 'yup';
+import { Icon } from '@rneui/themed';
 
 import { useNavigation } from '@react-navigation/native';
 
@@ -12,7 +13,7 @@ interface FormValues {
 }
 
 const Authentication: React.FC = () => {
-
+  const navigation = useNavigation();
   const validationSchema = yup.object().shape({
     user: yup.string().required('Username is required'),
     password: yup.string().required('Password is required'),
@@ -23,10 +24,10 @@ const Authentication: React.FC = () => {
     console.log('Form submitted with values:', values);
   };
 
-  const navigation = useNavigation();
+
 
   return (
-     <ScrollView>
+    <ScrollView>
       <View style={commonStyles.container}>
         <View>
           <Image source={require('../../assets/bg-graphic.png')} style={styles.bg} />
@@ -41,21 +42,24 @@ const Authentication: React.FC = () => {
           onSubmit={handleSubmit}
         >
           {({ handleChange, handleSubmit, values, errors }) => (
+
             <View style={styles.form}>
               <Text style={styles.headerText}>Login</Text>
               <Text style={styles.text}>Please log in to continue.</Text>
 
+
               <TextInput
-                style={styles.textInput}
+                style={styles.input}
                 placeholder='Username'
                 // label='Username'
                 onChangeText={handleChange('user')}
                 value={values.user}
               />
+
               {errors.user && <Text style={styles.errorText}>{errors.user}</Text>}
 
               <TextInput
-                style={styles.textInput}
+                style={styles.input}
                 placeholder='Password'
                 onChangeText={handleChange('password')}
                 value={values.password}
@@ -63,7 +67,7 @@ const Authentication: React.FC = () => {
               />
               {errors.password && <Text style={styles.errorText}>{errors.password}</Text>}
 
-              <TouchableOpacity onPress= {() => handleSubmit()} style={styles.loginBtn} >
+              <TouchableOpacity onPress={() => navigation.navigate('Dashboard')} style={styles.loginBtn} >
                 <Text style={styles.loginText}>LOG IN</Text>
               </TouchableOpacity>
             </View>
@@ -71,10 +75,10 @@ const Authentication: React.FC = () => {
         </Formik>
 
         <View style={styles.foot}>
-          <Text style={styles.text}>Don’t have an account yet? </Text>
+          <Text style={styles.footText}>Don’t have an account yet? </Text>
           <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-  <Text style={styles.signupText}> SIGN UP</Text>
-</TouchableOpacity>
+            <Text style={styles.signupText}> SIGN UP</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </ScrollView>
@@ -84,7 +88,6 @@ const Authentication: React.FC = () => {
 export default Authentication
 
 const styles = StyleSheet.create({
- 
   logo: {
     height: 130,
     marginTop: 125,
@@ -94,21 +97,31 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: -120,
   },
+
   headerText: {
-    fontWeight: '700',
-    fontSize: 22,
+    fontWeight: '600',
+    fontSize: 23,
     color: '#F08C8A',
     marginBottom: 10,
     marginLeft: 10,
+    fontFamily: 'Lato-Bold',
   },
   text: {
     fontSize: 14,
-    fontWeight: '500',
+    fontWeight: '400',
     marginBottom: 15,
     marginLeft: 10,
     color: '#424242',
+    fontFamily: 'Lato-Regular',
   },
-  textInput: {
+  errorText: {
+    color: 'red',
+    marginLeft: 10,
+    fontFamily: 'Lato-Regular',
+    fontWeight: '400',
+  },
+
+  input: {
     borderRadius: 20,
     width: 270,
     height: 48,
@@ -116,24 +129,33 @@ const styles = StyleSheet.create({
     elevation: 10,
     backgroundColor: 'white',
     padding: 16,
+    fontFamily: 'Lato-Regular',
+    fontWeight: '400',
   },
-
   form: {
-    marginBottom: 100,
+    marginBottom: 115,
     height: 300,
   },
-  
+
   signupText: {
     color: '#FDC380',
-    fontWeight: '700',
     fontSize: 14,
+    fontFamily: 'Lato-Bold',
+    fontWeight: '600',
   },
 
   foot: {
-    flex: 1,
     flexDirection: 'row',
     marginBottom: 50,
   },
+  footText: {
+    fontSize: 14,
+    fontWeight: '400',
+    marginBottom: 5,
+    color: '#424242',
+    fontFamily: 'Lato-Regular',
+  },
+
   loginBtn: {
     backgroundColor: '#FDC380',
     borderRadius: 20,
@@ -149,9 +171,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '500',
     textAlign: 'center',
+    fontFamily: 'Lato-Regular',
   },
-  errorText: {
-    color: 'red',
-    marginLeft: 10,
-  },
+
 })

@@ -2,7 +2,7 @@ import React from 'react';
 import { ScrollView, StyleSheet, Text, View, Image, TextInput, TouchableOpacity, Pressable } from 'react-native';
 import { Formik } from 'formik';
 import * as yup from 'yup';
-
+import commonStyles from '../commonStyles';
 
 interface FormValues {
   email: string;
@@ -26,7 +26,7 @@ const SignUp: React.FC = () => {
 
   return (
     <ScrollView>
-      <View style={styles.container}>
+      <View style={commonStyles.container}>
         <View>
           <Image source={require('../../../assets/bg-graphic.png')} style={styles.bg} />
         </View>
@@ -45,7 +45,7 @@ const SignUp: React.FC = () => {
               <Text style={styles.text}>Fill out the necessary information to start using our app.</Text>
 
               <TextInput
-                style={styles.textInput}
+                style={styles.input}
                 placeholder='Email'
                 onChangeText={handleChange('email')}
                 value={values.email}
@@ -54,7 +54,7 @@ const SignUp: React.FC = () => {
               {errors.email && <Text style={styles.errorText}>{errors.email}</Text>}
 
               <TextInput
-                style={styles.textInput}
+                style={styles.input}
                 placeholder='Password'
                 onChangeText={handleChange('password')}
                 value={values.password}
@@ -63,25 +63,31 @@ const SignUp: React.FC = () => {
               {errors.password && <Text style={styles.errorText}>{errors.password}</Text>}
 
               <TextInput
-                style={styles.textInput}
+                style={styles.input}
                 placeholder='Retype Password'
                 onChangeText={handleChange('retypePassword')}
                 value={values.retypePassword}
                 secureTextEntry
               />
               {errors.retypePassword && <Text style={styles.errorText}>{errors.retypePassword}</Text>}
-
-              <TouchableOpacity onPress={() => handleSubmit()} style={styles.loginBtn}>
-                <Text style={styles.loginText}>SIGN UP</Text>
+            <View style={styles.btnContainer}>
+              <TouchableOpacity style={styles.fbBtn}>
+                <Text style={styles.fbText}>LOGIN WITH FACEBOOK</Text>
               </TouchableOpacity>
+
+              <TouchableOpacity onPress={() => handleSubmit()} style={styles.signupBtn}>
+                <Text style={styles.signupText}>SIGN UP</Text>
+              </TouchableOpacity>
+            </View>
+           
             </View>
           )}
         </Formik>
 
         <View style={styles.foot}>
-          <Text style={styles.text}>Already have an account? </Text>
+          <Text style={styles.footText}>Already have an account? </Text>
           <Pressable>
-            <Text style={styles.signupText}>LOG IN</Text>
+            <Text style={styles.loginText}>LOG IN</Text>
           </Pressable>
         </View>
       </View>
@@ -95,72 +101,106 @@ const styles = StyleSheet.create({
   logo: {
     height: 130,
     marginTop: 125,
-    marginBottom: 100,
+    marginBottom: 76,
   },
   bg: {
     position: 'absolute',
     left: -120,
   },
+  form: {
+    marginBottom: 40,
+    height: 400,
+    width: 290,
+  },
+
   headerText: {
-    fontWeight: '700',
-    fontSize: 22,
+    fontWeight: '600',
+    fontSize: 23,
     color: '#F08C8A',
     marginBottom: 10,
+    marginLeft: 10,
+    fontFamily: 'Lato-Bold',
   },
-  text: {
+   text: {
     fontSize: 14,
-    fontWeight: '500',
-    marginBottom: 15,
+    fontWeight: '400',
+    marginBottom: 5,
+    marginLeft: 10,
     color: '#424242',
+    fontFamily: 'Lato-Regular',
   },
-  form: {
-    marginBottom: 100,
-    height: 400,
+  errorText: {
+    color: 'red',
+    marginLeft: 10,
+    fontFamily: 'Lato-Regular',
+    fontWeight: '400',
   },
-  signupText: {
+ 
+  loginText: {
     color: '#FDC380',
     fontWeight: '700',
     fontSize: 14,
   },
   foot: {
-    flex: 1,
     flexDirection: 'row',
-    marginBottom: 50,
+    marginBottom: 50
   },
-  loginBtn: {
-    backgroundColor: '#FDC380',
+  footText: {
+    fontSize: 14,
+    fontWeight: '400',
+    marginBottom: 5,
+    color: '#424242',
+    fontFamily: 'Lato-Regular',
+  },
+
+  fbBtn: {
+    backgroundColor: '#517FED',
     borderRadius: 20,
     width: 134,
     height: 47,
-    marginLeft: 140,
     marginTop: 15,
     paddingVertical: 12,
     paddingHorizontal: 16,
     elevation: 9,
   },
-  loginText: {
+  fbText: {
+    fontSize: 10,
+    fontWeight: '500',
+    textAlign: 'center',
+    fontFamily: 'Lato-Regular',
+    color: '#fff',
+  },
+  signupBtn: {
+    backgroundColor: '#FDC380',
+    borderRadius: 20,
+    width: 134,
+    height: 47,
+    marginLeft: 10,
+    marginTop: 15,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    elevation: 9,
+  },
+  signupText: {
     fontSize: 16,
     fontWeight: '500',
     textAlign: 'center',
+    fontFamily: 'Lato-Regular',
   },
-  errorText: {
-    color: 'red',
-  },
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    height: '100%',
-    width: '100%',
-  },
-  textInput: {
+
+  input: {
     borderRadius: 20,
-    width: 263,
+    width: 275,
     height: 48,
-    margin: 10,
+    marginTop: 15,
+    marginBottom: 9,
+    marginLeft: 4,
     elevation: 10,
     backgroundColor: 'white',
     padding: 16,
   },
+  btnContainer: {
+    flexDirection: 'row',
+  }
 });
 
