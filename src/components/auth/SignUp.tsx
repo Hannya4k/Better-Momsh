@@ -3,6 +3,7 @@ import { ScrollView, StyleSheet, Text, View, Image, TextInput, TouchableOpacity,
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import commonStyles from '../commonStyles';
+import { Icon } from '@rneui/themed';
 
 interface FormValues {
   email: string;
@@ -70,16 +71,20 @@ const SignUp: React.FC = () => {
                 secureTextEntry
               />
               {errors.retypePassword && <Text style={styles.errorText}>{errors.retypePassword}</Text>}
-            <View style={styles.btnContainer}>
-              <TouchableOpacity style={styles.fbBtn}>
-                <Text style={styles.fbText}>LOGIN WITH FACEBOOK</Text>
-              </TouchableOpacity>
+              <View style={styles.btnContainer}>
+                <TouchableOpacity style={styles.fbBtn}>
+                  <View  style={{flexDirection: 'row'}}>
+                  <Icon style={{marginRight: 15}} name="facebook-f" type="font-awesome" size={20} color="#fff" />
+                  <Text style={styles.fbText}>LOGIN WITH FACEBOOK</Text>
+                  </View>
+                 
+                </TouchableOpacity>
 
-              <TouchableOpacity onPress={() => handleSubmit()} style={styles.signupBtn}>
-                <Text style={styles.signupText}>SIGN UP</Text>
-              </TouchableOpacity>
-            </View>
-           
+                <TouchableOpacity onPress={() => handleSubmit()} style={styles.signupBtn}>
+                  <Text style={styles.signupText}>SIGN UP</Text>
+                </TouchableOpacity>
+              </View>
+
             </View>
           )}
         </Formik>
@@ -121,7 +126,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     fontFamily: 'Lato-Bold',
   },
-   text: {
+  text: {
     fontSize: 14,
     fontWeight: '400',
     marginBottom: 5,
@@ -135,7 +140,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Lato-Regular',
     fontWeight: '400',
   },
- 
+
   loginText: {
     color: '#FDC380',
     fontWeight: '700',
