@@ -6,9 +6,17 @@ const commonStyles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     backgroundColor: '#fff',
-    height: '100%',
+    height: '100%'    ,
     width: '100%',
   },
+  container1: {
+    flex: 1,
+    alignItems: 'center',
+    backgroundColor: '#f08c8a',
+    height: '100%'    ,
+    width: '100%',
+  },
+
   boxButton: {
     width: '70%',
     height: '10%',
@@ -128,6 +136,7 @@ const commonStyles = StyleSheet.create({
     fontWeight: '700',
     fontSize: 16,
   },
+
 });
 
 export default commonStyles;
