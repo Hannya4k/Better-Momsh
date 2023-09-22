@@ -1,34 +1,26 @@
-import { ScrollView, StyleSheet, Text, View, Image, TextInput, TouchableOpacity, Pressable } from 'react-native'
-import React from 'react'
-import commonStyles from '../components/commonStyles'
+import React from 'react';
+import { ScrollView, StyleSheet, Text, View, Image, TextInput, TouchableOpacity, Pressable } from 'react-native';
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import { Icon } from '@rneui/themed';
 
+// Import the useNavigation hook
 import { useNavigation } from '@react-navigation/native';
 
-interface FormValues {
-  user: string;
-  password: string;
-}
-
-const Authentication: React.FC = () => {
+const Authentication = () => {
   const navigation = useNavigation();
   const validationSchema = yup.object().shape({
     user: yup.string().required('Username is required'),
     password: yup.string().required('Password is required'),
   });
 
-  const handleSubmit = (values: FormValues) => {
+  const handleSubmit = (values) => {
     // Handle form submission here, e.g., send data to an API
     console.log('Form submitted with values:', values);
   };
 
-
-
   return (
     <ScrollView>
-      <View style={commonStyles.container}>
+      <View style={styles.container}>
         <View>
           <Image source={require('../../assets/bg-graphic.png')} style={styles.bg} />
         </View>
@@ -42,20 +34,16 @@ const Authentication: React.FC = () => {
           onSubmit={handleSubmit}
         >
           {({ handleChange, handleSubmit, values, errors }) => (
-
             <View style={styles.form}>
               <Text style={styles.headerText}>Login</Text>
               <Text style={styles.text}>Please log in to continue.</Text>
 
-
               <TextInput
                 style={styles.input}
                 placeholder='Username'
-                // label='Username'
                 onChangeText={handleChange('user')}
                 value={values.user}
               />
-
               {errors.user && <Text style={styles.errorText}>{errors.user}</Text>}
 
               <TextInput
@@ -67,7 +55,7 @@ const Authentication: React.FC = () => {
               />
               {errors.password && <Text style={styles.errorText}>{errors.password}</Text>}
 
-              <TouchableOpacity onPress={() => navigation.navigate('Dashboard')} style={styles.loginBtn} >
+              <TouchableOpacity onPress={() => navigation.navigate('Dashboard')} style={styles.loginBtn}>
                 <Text style={styles.loginText}>LOG IN</Text>
               </TouchableOpacity>
             </View>
@@ -85,7 +73,7 @@ const Authentication: React.FC = () => {
   );
 };
 
-export default Authentication
+export default Authentication;
 
 const styles = StyleSheet.create({
   logo: {

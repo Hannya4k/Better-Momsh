@@ -4,25 +4,25 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import commonStyles from '../commonStyles';
 import { Icon } from '@rneui/themed';
+import { observer } from 'mobx-react-lite';
+import authStore from '../../api/services/authServices';
 
-interface FormValues {
-  email: string;
-  password: string;
-  retypePassword: string;
-}
-
-const SignUp: React.FC = () => {
+const SignUp = () => {
   const validationSchema = yup.object().shape({
     email: yup.string().email('Invalid email').required('Email is required'),
     password: yup.string().required('Password is required'),
     retypePassword: yup.string()
-      .oneOf([yup.ref('password'), null as any], 'Passwords must match')
+      .oneOf([yup.ref('password'), null], 'Passwords must match')
       .required('Retype Password is required'),
   });
 
-  const handleSubmit = (values: FormValues) => {
-    // Handle form submission here, e.g., send data to an API
-    console.log('Form submitted with values:', values);
+  const handleRegister = async (values) => { 
+    authStore.clearError();
+    if (values.password !== values.retypePassword) { 
+      authStore.registrationError = 'Passwords do not match.';
+      return;
+    }
+    await authStore.registerUser();
   };
 
   return (
@@ -38,7 +38,7 @@ const SignUp: React.FC = () => {
         <Formik
           initialValues={{ email: '', password: '', retypePassword: '' }}
           validationSchema={validationSchema}
-          onSubmit={handleSubmit}
+          onSubmit={handleRegister} // Correct the function name
         >
           {({ handleChange, handleSubmit, values, errors }) => (
             <View style={styles.form}>
@@ -48,8 +48,10 @@ const SignUp: React.FC = () => {
               <TextInput
                 style={styles.input}
                 placeholder='Email'
-                onChangeText={handleChange('email')}
-                value={values.email}
+                // onChangeText={handleChange('email')}
+                onChangeText={(text) => authStore.setEmail(text)}
+        value={authStore.email}
+                // value={values.email}
                 keyboardType='email-address'
               />
               {errors.email && <Text style={styles.errorText}>{errors.email}</Text>}
@@ -57,8 +59,10 @@ const SignUp: React.FC = () => {
               <TextInput
                 style={styles.input}
                 placeholder='Password'
-                onChangeText={handleChange('password')}
-                value={values.password}
+                // onChangeText={handleChange('password')}
+                // value={values.password}
+                onChangeText={(text) => authStore.setPassword(text)}
+                value={authStore.password}
                 secureTextEntry
               />
               {errors.password && <Text style={styles.errorText}>{errors.password}</Text>}
@@ -66,25 +70,26 @@ const SignUp: React.FC = () => {
               <TextInput
                 style={styles.input}
                 placeholder='Retype Password'
-                onChangeText={handleChange('retypePassword')}
-                value={values.retypePassword}
+                onChangeText={(text) => authStore.setRetypePassword(text)}
+        value={authStore.retypePassword}
+                // onChangeText={handleChange('retypePassword')}
+                // value={values.retypePassword}
                 secureTextEntry
               />
               {errors.retypePassword && <Text style={styles.errorText}>{errors.retypePassword}</Text>}
               <View style={styles.btnContainer}>
                 <TouchableOpacity style={styles.fbBtn}>
-                  <View  style={{flexDirection: 'row'}}>
-                  <Icon style={{marginRight: 15}} name="facebook-f" type="font-awesome" size={20} color="#fff" />
-                  <Text style={styles.fbText}>LOGIN WITH FACEBOOK</Text>
+                  <View style={{ flexDirection: 'row' }}>
+                    <Icon style={{ marginRight: 15 }} name="facebook-f" type="font-awesome" size={20} color="#fff" />
+                    <Text style={styles.fbText}>LOGIN WITH FACEBOOK</Text>
                   </View>
-                 
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={() => handleSubmit()} style={styles.signupBtn}>
+                <TouchableOpacity onPress={handleRegister} style={styles.signupBtn}>
                   <Text style={styles.signupText}>SIGN UP</Text>
                 </TouchableOpacity>
+                {authStore.registrationError ? <Text>{authStore.registrationError}</Text> : null}
               </View>
-
             </View>
           )}
         </Formik>
