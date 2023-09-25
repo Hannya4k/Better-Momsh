@@ -1,11 +1,15 @@
-import { ScrollView, StyleSheet, Text, View, TextInput, Image } from 'react-native'
+import { ScrollView, StyleSheet, Text, View, TextInput, Image, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react';
 import commonStyles from '../components/commonStyles'
 import { BottomTabBar } from '@react-navigation/bottom-tabs';
 
 
 const Dashboard = () => {
+    const [selectedTouchable, setSelectedTouchable] = useState(null);
 
+    const handleTouchablePress = (touchableName) => {
+        setSelectedTouchable(touchableName);
+    };
 
     return (
         <ScrollView style={styles.container}>
@@ -21,9 +25,44 @@ const Dashboard = () => {
                     <Text style={styles.text}>Search for your OB-GYN and book an
                         appointment now.</Text>
                 </View>
+
+                <View style={styles.btnContainer}>
+                    <TouchableOpacity onPress={() => handleTouchablePress('Doctors')}
+                        style={[
+                            styles.btn,
+                            selectedTouchable === 'Doctors' && styles.clickedBtn,
+                        ]}
+                    >
+                        <Text style={styles.btnText}>Doctors</Text>
+                    </TouchableOpacity >
+
+                    <TouchableOpacity onPress={() => handleTouchablePress('Maternity Clinics')}
+                        style={[
+                            styles.btn,
+                            selectedTouchable === 'Maternity Clinics' && styles.clickedBtn,
+                        ]}>
+                        <Text style={styles.btnText}>Maternity Clinics</Text>
+                    </TouchableOpacity>
+                </View>
+
+                <View style={styles.placeholder}>
+                    <Text>test</Text>
+                </View>
+
+                <View style={styles.placeholder}>
+                    <Text>test</Text>
+                </View>
+
+                <View style={styles.placeholder}>
+                    <Text>test</Text>
+                </View>
+
+                <Text style={styles.headerText}>Recent Appointment</Text>
+
+                <View style={styles.placeholder}>
+                    <Text>test</Text>
+                </View>
             </View>
-
-
         </ScrollView>
 
     )
@@ -34,12 +73,14 @@ export default Dashboard
 const styles = StyleSheet.create({
     bg: {
         position: 'absolute',
-        left: -120,
+        left: 15,
         bottom: 0,
+        width: 500,
+        height: 500
     },
 
     container: {
-        
+
         height: 600,
     },
     searchBar: {
@@ -69,5 +110,30 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 16,
         fontFamily: 'Lato-Regular'
+    },
+    btnContainer: {
+        flexDirection: 'row',
+        margin: 10
+    },
+    btn: {
+        margin: 40,
+        marginBottom: 10,
+    },
+    btnText: {
+        fontSize: 18,
+        fontWeight: '600',
+        color: '#fff',
+        fontFamily: 'Lato-Bold'
+    },
+    clickedBtn: {
+        borderBottomWidth: 2, 
+        borderBottomColor: '#FDC380',
+    },
+    placeholder: {
+        width: 330,
+        height: 69,
+        backgroundColor: 'white',
+        marginBottom: 30,
+        borderRadius: 20
     }
 })

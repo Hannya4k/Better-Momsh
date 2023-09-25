@@ -136,7 +136,7 @@ const commonStyles = StyleSheet.create({
     fontWeight: '700',
     fontSize: 16,
   },
-
+  
 });
 
 export default commonStyles;

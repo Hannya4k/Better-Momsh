@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Authentication from '../screens/Authentication';
 import SignUp from '../components/auth/SignUp';
+import LogIn from '../components/auth/LogIn';
 import Dashboard from '../screens/Dashboard';
 import UnavailablePage from '../components/404page';
 
@@ -14,12 +15,13 @@ const Tab = createBottomTabNavigator();
 function AppNavigator() {
   return (
     <NavigationContainer>
-    <Stack.Navigator initialRouteName="Login">
-      <Stack.Screen name="Login" component={Authentication} options={{ header: () => null }} />
-      <Stack.Screen name="SignUp" component={SignUp} options={{ header: () => null }} />
-      <Stack.Screen name="Dashboard" component={DashboardStackScreen} options={{ header: () => null }} />
-    </Stack.Navigator>
-    {/* <Tab.Navigator>
+      <Stack.Navigator initialRouteName="Auth">
+        <Stack.Screen name="Auth" component={Authentication} options={{ header: () => null }} />
+        <Stack.Screen name="LogIn" component={LogIn} options={{ header: () => null }} />
+        <Stack.Screen name="SignUp" component={SignUp} options={{ header: () => null }} />
+        <Stack.Screen name="Dashboard" component={DashboardStackScreen} options={{ header: () => null }} />
+      </Stack.Navigator>
+      {/* <Tab.Navigator>
       <Tab.Screen name="Home" component={Dashboard} />
       <Tab.Screen name="Profile" component={UnavailablePage} />
     </Tab.Navigator> */}
@@ -32,7 +34,7 @@ function DashboardStackScreen() {
     <Tab.Navigator initialRouteName="Home">
       <Tab.Screen name="Doctors" component={UnavailablePage} />
       <Tab.Screen name="Clinics" component={UnavailablePage} />
-      <Tab.Screen name="Home" component={Dashboard} options={{ header: () => null }}/>
+      <Tab.Screen name="Home" component={Dashboard} options={{ header: () => null }} />
       <Tab.Screen name="Baby book" component={UnavailablePage} />
       <Tab.Screen name="Profile" component={UnavailablePage} />
     </Tab.Navigator>

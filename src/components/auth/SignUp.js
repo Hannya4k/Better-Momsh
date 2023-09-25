@@ -1,13 +1,14 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text, View, Image, TextInput, TouchableOpacity, Pressable } from 'react-native';
+import { ScrollView, StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from 'react-native';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import commonStyles from '../commonStyles';
+import { useNavigation } from '@react-navigation/native';
 import { Icon } from '@rneui/themed';
-import { observer } from 'mobx-react-lite';
-import authStore from '../../api/services/authServices';
+import Header from '../header';
 
 const SignUp = () => {
+  const navigation = useNavigation();
   const validationSchema = yup.object().shape({
     email: yup.string().email('Invalid email').required('Email is required'),
     password: yup.string().required('Password is required'),
@@ -16,29 +17,31 @@ const SignUp = () => {
       .required('Retype Password is required'),
   });
 
-  const handleRegister = async (values) => { 
-    authStore.clearError();
-    if (values.password !== values.retypePassword) { 
-      authStore.registrationError = 'Passwords do not match.';
-      return;
-    }
-    await authStore.registerUser();
-  };
 
+  const handleSubmit = async (values) => {
+    try {
+      const response = await axios.post('https://localhost:44361/api/userRegister', {
+        email: values.email,
+        password: values.password,
+      });
+
+      // Handle the response, e.g., show a success message or navigate to another screen
+      console.log('Registration Successful', response.data);
+      navigation.navigate('Auth');
+    } catch (error) {
+      console.error('Registration Error', error);
+    }
+  };
+ 
   return (
     <ScrollView>
       <View style={commonStyles.container}>
-        <View>
-          <Image source={require('../../../assets/bg-graphic.png')} style={styles.bg} />
-        </View>
-        <View style={styles.logo}>
-          <Image source={require('../../../assets/logo/logo-header.png')} />
-        </View>
+        <Header />
 
         <Formik
           initialValues={{ email: '', password: '', retypePassword: '' }}
           validationSchema={validationSchema}
-          onSubmit={handleRegister} // Correct the function name
+          onSubmit={handleSubmit}
         >
           {({ handleChange, handleSubmit, values, errors }) => (
             <View style={styles.form}>
@@ -48,10 +51,8 @@ const SignUp = () => {
               <TextInput
                 style={styles.input}
                 placeholder='Email'
-                // onChangeText={handleChange('email')}
-                onChangeText={(text) => authStore.setEmail(text)}
-        value={authStore.email}
-                // value={values.email}
+                onChangeText={handleChange('email')}
+                value={values.email}
                 keyboardType='email-address'
               />
               {errors.email && <Text style={styles.errorText}>{errors.email}</Text>}
@@ -59,10 +60,8 @@ const SignUp = () => {
               <TextInput
                 style={styles.input}
                 placeholder='Password'
-                // onChangeText={handleChange('password')}
-                // value={values.password}
-                onChangeText={(text) => authStore.setPassword(text)}
-                value={authStore.password}
+                onChangeText={handleChange('password')}
+                value={values.password}
                 secureTextEntry
               />
               {errors.password && <Text style={styles.errorText}>{errors.password}</Text>}
@@ -70,13 +69,12 @@ const SignUp = () => {
               <TextInput
                 style={styles.input}
                 placeholder='Retype Password'
-                onChangeText={(text) => authStore.setRetypePassword(text)}
-        value={authStore.retypePassword}
-                // onChangeText={handleChange('retypePassword')}
-                // value={values.retypePassword}
+                onChangeText={handleChange('retypePassword')}
+                value={values.retypePassword}
                 secureTextEntry
               />
               {errors.retypePassword && <Text style={styles.errorText}>{errors.retypePassword}</Text>}
+
               <View style={styles.btnContainer}>
                 <TouchableOpacity style={styles.fbBtn}>
                   <View style={{ flexDirection: 'row' }}>
@@ -85,21 +83,21 @@ const SignUp = () => {
                   </View>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={handleRegister} style={styles.signupBtn}>
+                <TouchableOpacity onPress={handleSubmit} style={styles.signupBtn}>
                   <Text style={styles.signupText}>SIGN UP</Text>
                 </TouchableOpacity>
-                {authStore.registrationError ? <Text>{authStore.registrationError}</Text> : null}
               </View>
             </View>
           )}
         </Formik>
 
         <View style={styles.foot}>
-          <Text style={styles.footText}>Already have an account? </Text>
-          <Pressable>
-            <Text style={styles.loginText}>LOG IN</Text>
-          </Pressable>
-        </View>
+                <Text style={styles.footText}>Already have an account? </Text>
+                <TouchableOpacity onPress={() => navigation.navigate('Auth')}>
+                    <Text style={styles.loginText}>LOG IN</Text>
+                </TouchableOpacity>
+            </View>
+
       </View>
     </ScrollView>
   );
@@ -108,17 +106,8 @@ const SignUp = () => {
 export default SignUp;
 
 const styles = StyleSheet.create({
-  logo: {
-    height: 130,
-    marginTop: 125,
-    marginBottom: 76,
-  },
-  bg: {
-    position: 'absolute',
-    left: -120,
-  },
   form: {
-    marginBottom: 40,
+    marginBottom: 25,
     height: 400,
     width: 290,
   },
@@ -153,7 +142,7 @@ const styles = StyleSheet.create({
   },
   foot: {
     flexDirection: 'row',
-    marginBottom: 50
+    marginBottom: 40
   },
   footText: {
     fontSize: 14,
@@ -200,7 +189,7 @@ const styles = StyleSheet.create({
 
   input: {
     borderRadius: 20,
-    width: 275,
+    width: 280,
     height: 48,
     marginTop: 15,
     marginBottom: 9,
@@ -211,6 +200,7 @@ const styles = StyleSheet.create({
   },
   btnContainer: {
     flexDirection: 'row',
-  }
+    marginLeft: 5,
+  },
 });
 
