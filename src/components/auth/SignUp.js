@@ -6,6 +6,7 @@ import commonStyles from '../commonStyles';
 import { useNavigation } from '@react-navigation/native';
 import { Icon } from '@rneui/themed';
 import Header from '../header';
+import axios from 'axios';
 
 const SignUp = () => {
   const navigation = useNavigation();
@@ -17,7 +18,10 @@ const SignUp = () => {
       .required('Retype Password is required'),
   });
 
-
+  // const handleSubmit = (values) => {
+  //   // Handle form submission here, e.g., send data to an API
+  //   console.log('Form submitted with values:', values);
+  // };
   const handleSubmit = async (values) => {
     try {
       const response = await axios.post('https://localhost:44361/api/userRegister', {
@@ -25,14 +29,14 @@ const SignUp = () => {
         password: values.password,
       });
 
-      // Handle the response, e.g., show a success message or navigate to another screen
+      // Handle the response, show a success message or navigate to another screen
       console.log('Registration Successful', response.data);
       navigation.navigate('Auth');
     } catch (error) {
       console.error('Registration Error', error);
     }
   };
- 
+
   return (
     <ScrollView>
       <View style={commonStyles.container}>
@@ -92,11 +96,11 @@ const SignUp = () => {
         </Formik>
 
         <View style={styles.foot}>
-                <Text style={styles.footText}>Already have an account? </Text>
-                <TouchableOpacity onPress={() => navigation.navigate('Auth')}>
-                    <Text style={styles.loginText}>LOG IN</Text>
-                </TouchableOpacity>
-            </View>
+          <Text style={styles.footText}>Already have an account? </Text>
+          <TouchableOpacity onPress={() => navigation.navigate('Auth')}>
+            <Text style={styles.loginText}>LOG IN</Text>
+          </TouchableOpacity>
+        </View>
 
       </View>
     </ScrollView>
