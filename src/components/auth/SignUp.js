@@ -10,6 +10,7 @@ import axios from 'axios';
 
 const SignUp = () => {
   const navigation = useNavigation();
+
   const validationSchema = yup.object().shape({
     email: yup.string().email('Invalid email').required('Email is required'),
     password: yup.string().required('Password is required'),
@@ -18,25 +19,57 @@ const SignUp = () => {
       .required('Retype Password is required'),
   });
 
-  // const handleSubmit = (values) => {
-  //   // Handle form submission here, e.g., send data to an API
-  //   console.log('Form submitted with values:', values);
+  // const handleSubmit = async (values) => {
+  //   try {
+  //     const response = await axios.post("https://10.0.2.2:44361/api/userAuth/register", {
+  //       "username": "string",
+  //       "password": "string",
+  //       "salt": "string",
+  //       "firstName": "string",
+  //       "lastName": "string",
+  //       "middleName": "string",
+  //       "birthdate": "2023-10-02T02:33:00.200Z",
+  //       "religion": "string",
+  //       "occupation": "string",
+  //       "relationshipStatus": "string",
+  //       "address": "string",
+  //       "contactNumber": 0
+  //     });
+
+  //     console.log('Registration Successful', response.data);
+  //     navigation.navigate('Auth');
+  //   } catch (error) {
+  //     console.error('Registration Error', error);
+  //   }
   // };
-  const handleSubmit = async (values) => {
-    try {
-      const response = await axios.post('https://localhost:44361/api/userRegister', {
-        email: values.email,
-        password: values.password,
-      });
 
-      // Handle the response, show a success message or navigate to another screen
-      console.log('Registration Successful', response.data);
-      navigation.navigate('Auth');
-    } catch (error) {
-      console.error('Registration Error', error);
-    }
+  const handleSubmit = () => {
+    const { email, password } = values; // Destructure email and password from values
+  
+    user_register({
+      username: "String@gmail.com", // Use email from values
+      password: password, // Use password from values
+      salt: password, // Use password from values (this might need further validation)
+      firstName: "string",
+      lastName: "string",
+      middleName: "string",
+      birthdate: "2023-10-02T02:33:00.200Z",
+      religion: "string",
+      occupation: "string",
+      relationshipStatus: "string",
+      address: "string",
+      contactNumber: 0
+    }).then((result) => {
+      if (result.status === 200) {
+        // Handle the success scenario here
+        console.log('Registration Successful');
+        navigation.navigate('Auth');
+      } else {
+        // Handle other status codes or errors
+        console.error('Registration Error', result);
+      }
+    });
   };
-
   return (
     <ScrollView>
       <View style={commonStyles.container}>
