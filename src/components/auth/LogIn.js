@@ -15,7 +15,7 @@ const LogIn = () => {
     });
 
     const handleSubmit = (values) => {
-      navigation.navigate('Auth');
+      
       console.log('Form submitted with values:', values);
     };
 
@@ -62,8 +62,9 @@ const LogIn = () => {
                             secureTextEntry
                         />
                         {errors.password && <Text style={styles.errorText}>{errors.password}</Text>}
+                        {/* onPress={handleSubmit} */}
                         {/* onPress={() => navigation.navigate('Dashboard')} */}
-                        <TouchableOpacity onPress={handleSubmit} style={styles.loginBtn}>
+                        <TouchableOpacity onPress={() => navigation.navigate('Dashboard')} style={styles.loginBtn}>
                             <Text style={styles.loginText}>LOG IN</Text>
                         </TouchableOpacity>
                     </View>
