@@ -19,128 +19,96 @@ const SignUp = () => {
       .required('Retype Password is required'),
   });
 
-  // const handleSubmit = async (values) => {
-  //   try {
-  //     const response = await axios.post("https://10.0.2.2:44361/api/userAuth/register", {
-  //       "username": "string",
-  //       "password": "string",
-  //       "salt": "string",
-  //       "firstName": "string",
-  //       "lastName": "string",
-  //       "middleName": "string",
-  //       "birthdate": "2023-10-02T02:33:00.200Z",
-  //       "religion": "string",
-  //       "occupation": "string",
-  //       "relationshipStatus": "string",
-  //       "address": "string",
-  //       "contactNumber": 0
-  //     });
-
-  //     console.log('Registration Successful', response.data);
-  //     navigation.navigate('Auth');
-  //   } catch (error) {
-  //     console.error('Registration Error', error);
-  //   }
-  // };
-
-  const handleSubmit = () => {
-    const { email, password } = values; // Destructure email and password from values
-  
-    user_register({
-      username: "String@gmail.com", // Use email from values
-      password: password, // Use password from values
-      salt: password, // Use password from values (this might need further validation)
-      firstName: "string",
-      lastName: "string",
-      middleName: "string",
-      birthdate: "2023-10-02T02:33:00.200Z",
-      religion: "string",
-      occupation: "string",
-      relationshipStatus: "string",
-      address: "string",
-      contactNumber: 0
-    }).then((result) => {
-      if (result.status === 200) {
-        // Handle the success scenario here
-        console.log('Registration Successful');
-        navigation.navigate('Auth');
-      } else {
-        // Handle other status codes or errors
-        console.error('Registration Error', result);
-      }
-    });
+  const handleSubmit = (values) => {
+    navigation.navigate('Dashboard');
+    console.log('Form submitted with values:', values);
   };
+
+  // const handleSubmit = () => {
+  //     try {
+  //       const response = await axios.post('https://localhost:44361/api/userLogin', {
+  //         email: values.email,
+  //         password: values.password,
+  //       });
+  
+  //       // Handle the response, show a success message or navigate to another screen
+  //       console.log('Registration Successful', response.data);
+  //       navigation.navigate('Dashboard');
+  //     } catch (error) {
+  //       console.error('Registration Error', error);
+  //     }
+  //   };
+
   return (
-    <ScrollView>
-      <View style={commonStyles.container}>
-        <Header />
-
-        <Formik
-          initialValues={{ email: '', password: '', retypePassword: '' }}
-          validationSchema={validationSchema}
-          onSubmit={handleSubmit}
-        >
-          {({ handleChange, handleSubmit, values, errors }) => (
-            <View style={styles.form}>
-              <Text style={styles.headerText}>Sign Up</Text>
-              <Text style={styles.text}>Fill out the necessary information to start using our app.</Text>
-
-              <TextInput
-                style={styles.input}
-                placeholder='Email'
-                onChangeText={handleChange('email')}
-                value={values.email}
-                keyboardType='email-address'
-              />
-              {errors.email && <Text style={styles.errorText}>{errors.email}</Text>}
-
-              <TextInput
-                style={styles.input}
-                placeholder='Password'
-                onChangeText={handleChange('password')}
-                value={values.password}
-                secureTextEntry
-              />
-              {errors.password && <Text style={styles.errorText}>{errors.password}</Text>}
-
-              <TextInput
-                style={styles.input}
-                placeholder='Retype Password'
-                onChangeText={handleChange('retypePassword')}
-                value={values.retypePassword}
-                secureTextEntry
-              />
-              {errors.retypePassword && <Text style={styles.errorText}>{errors.retypePassword}</Text>}
-
-              <View style={styles.btnContainer}>
-                <TouchableOpacity style={styles.fbBtn}>
-                  <View style={{ flexDirection: 'row' }}>
-                    <Icon style={{ marginRight: 15 }} name="facebook-f" type="font-awesome" size={20} color="#fff" />
-                    <Text style={styles.fbText}>LOGIN WITH FACEBOOK</Text>
-                  </View>
-                </TouchableOpacity>
-
-                <TouchableOpacity onPress={handleSubmit} style={styles.signupBtn}>
-                  <Text style={styles.signupText}>SIGN UP</Text>
-                </TouchableOpacity>
+      <ScrollView>
+        <View style={commonStyles.container}>
+          <Header />
+  
+          <Formik
+            initialValues={{ email: '', password: '', retypePassword: '' }}
+            validationSchema={validationSchema}
+            onSubmit={handleSubmit}
+          >
+            {({ handleChange, handleSubmit, values, errors }) => (
+              <View style={styles.form}>
+                <Text style={styles.headerText}>Sign Up</Text>
+                <Text style={styles.text}>Fill out the necessary information to start using our app.</Text>
+  
+                <TextInput
+                  style={styles.input}
+                  placeholder='Email'
+                  onChangeText={handleChange('email')}
+                  value={values.email}
+                  keyboardType='email-address'
+                />
+                {errors.email && <Text style={styles.errorText}>{errors.email}</Text>}
+  
+                <TextInput
+                  style={styles.input}
+                  placeholder='Password'
+                  onChangeText={handleChange('password')}
+                  value={values.password}
+                  secureTextEntry
+                />
+                {errors.password && <Text style={styles.errorText}>{errors.password}</Text>}
+  
+                <TextInput
+                  style={styles.input}
+                  placeholder='Retype Password'
+                  onChangeText={handleChange('retypePassword')}
+                  value={values.retypePassword}
+                  secureTextEntry
+                />
+                {errors.retypePassword && <Text style={styles.errorText}>{errors.retypePassword}</Text>}
+  
+                <View style={styles.btnContainer}>
+                  <TouchableOpacity style={styles.fbBtn}>
+                    <View style={{ flexDirection: 'row' }}>
+                      <Icon style={{ marginRight: 15 }} name="facebook-f" type="font-awesome" size={20} color="#fff" />
+                      <Text style={styles.fbText}>LOGIN WITH FACEBOOK</Text>
+                    </View>
+                  </TouchableOpacity>
+  
+                  <TouchableOpacity onPress={handleSubmit} style={styles.signupBtn}>
+                    <Text style={styles.signupText}>SIGN UP</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
-            </View>
-          )}
-        </Formik>
-
-        <View style={styles.foot}>
-          <Text style={styles.footText}>Already have an account? </Text>
-          <TouchableOpacity onPress={() => navigation.navigate('Auth')}>
-            <Text style={styles.loginText}>LOG IN</Text>
-          </TouchableOpacity>
+            )}
+          </Formik>
+  
+          <View style={styles.foot}>
+            <Text style={styles.footText}>Already have an account? </Text>
+            <TouchableOpacity onPress={() => navigation.navigate('Auth')}>
+              <Text style={styles.loginText}>LOG IN</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-
-      </View>
-    </ScrollView>
-  );
-};
-
-export default SignUp;
+      </ScrollView>
+    );
+  };
+  
+  export default SignUp;
 
 const styles = StyleSheet.create({
   form: {
