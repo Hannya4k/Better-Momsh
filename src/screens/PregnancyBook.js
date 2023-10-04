@@ -34,7 +34,7 @@ const PregnancyBook = () => {
                             <Text style={styles.title}>2nd Trimester</Text>
                             <Text style={styles.text1}>4th - 6th month of pregnancy</Text>
 
-                            <TouchableOpacity style={styles.icon}>
+                            <TouchableOpacity style={styles.icon} onPress={() => navigation.navigate('SecondTrimester')}>
                                 <Icon name="arrow-right-bold" type="material-community" size={30} color="#517fed" />
                             </TouchableOpacity>
                         </View>
@@ -46,7 +46,7 @@ const PregnancyBook = () => {
                             <Text style={styles.title}>3rd Trimester</Text>
                             <Text style={styles.text1}>7th - 9th month of pregnancy</Text>
 
-                            <TouchableOpacity style={styles.icon}>
+                            <TouchableOpacity style={styles.icon} onPress={() => navigation.navigate('ThirdTrimester')}>
                                 <Icon name="arrow-right-bold" type="material-community" size={30} color="#517fed" />
                             </TouchableOpacity>
                         </View>

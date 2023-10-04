@@ -12,6 +12,8 @@ import Dashboard from '../screens/Dashboard';
 import UnavailablePage from '../components/404page';
 import PregnancyBook from '../screens/PregnancyBook';
 import FirstTrimester from '../components/babybook/firstTrimester';
+import SecondTrimester from '../components/babybook/secondTrimester';
+import ThirdTrimester from '../components/babybook/thirdTrimester';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -24,8 +26,9 @@ function AppNavigator() {
         <Stack.Screen name="LogIn" component={LogIn} options={{ header: () => null }} />
         <Stack.Screen name="SignUp" component={SignUp} options={{ header: () => null }} />
         <Stack.Screen name="FirstTrimester" component={FirstTrimester} options={{ header: () => null }} />
+        <Stack.Screen name="SecondTrimester" component={SecondTrimester} options={{ header: () => null }} />
+        <Stack.Screen name="ThirdTrimester" component={ThirdTrimester} options={{ header: () => null }} />
         <Stack.Screen name="Dashboard" component={DashboardStackScreen} options={{ header: () => null }} />
-        
       </Stack.Navigator>
       {/* <Tab.Navigator>
       <Tab.Screen name="Home" component={Dashboard} />
