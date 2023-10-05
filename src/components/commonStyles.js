@@ -13,7 +13,7 @@ const commonStyles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     backgroundColor: '#f08c8a',
-    height: '100%'    ,
+    height: '100%',
     width: '100%',
   },
 

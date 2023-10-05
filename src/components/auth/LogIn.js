@@ -4,6 +4,7 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import { useNavigation } from '@react-navigation/native';
 import commonStyles from '../commonStyles';
+import axios from 'axios';
 
 const LogIn = () => {
     const navigation = useNavigation();
@@ -13,20 +14,25 @@ const LogIn = () => {
         password: yup.string().required('Password is required'),
     });
 
-    const handleSubmit = async (values) => {
-      try {
-        const response = await axios.post('https://localhost:44361/api/userLogin', {
-          email: values.email,
-          password: values.password,
-        });
-  
-        // Handle the response, e.g., show a success message or navigate to another screen
-        console.log('Registration Successful', response.data);
-        navigation.navigate('Dashboard');
-      } catch (error) {
-        console.error('Registration Error', error);
-      }
+    const handleSubmit = (values) => {
+      
+      console.log('Form submitted with values:', values);
     };
+
+    // const handleSubmit = async (values) => {
+    //   try {
+    //     const response = await axios.post('https://localhost:44361/api/userLogin', {
+    //       email: values.email,
+    //       password: values.password,
+    //     });
+  
+    //     // Handle the response, show a success message or navigate to another screen
+    //     console.log('Registration Successful', response.data);
+    //     navigation.navigate('Dashboard');
+    //   } catch (error) {
+    //     console.error('Registration Error', error);
+    //   }
+    // };
 
     return (
         <View style={commonStyles.container}>
@@ -56,12 +62,14 @@ const LogIn = () => {
                             secureTextEntry
                         />
                         {errors.password && <Text style={styles.errorText}>{errors.password}</Text>}
-
-                        <TouchableOpacity onPress={handleSubmit} style={styles.loginBtn}>
+                        {/* onPress={handleSubmit} */}
+                        {/* onPress={() => navigation.navigate('Dashboard')} */}
+                        <TouchableOpacity onPress={() => navigation.navigate('Dashboard')} style={styles.loginBtn}>
                             <Text style={styles.loginText}>LOG IN</Text>
                         </TouchableOpacity>
                     </View>
                 )}
+                
             </Formik>
 
             <View style={styles.foot}>
