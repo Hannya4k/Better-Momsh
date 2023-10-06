@@ -2,8 +2,10 @@ import { ScrollView, StyleSheet, Text, View, Image, TouchableOpacity } from 'rea
 import React from 'react'
 import commonStyles from '../commonStyles'
 import { Icon } from '@rneui/themed';
+import { useNavigation } from '@react-navigation/native';
 
 const FirstTrimester = () => {
+  const navigation = useNavigation();
   return (
     <ScrollView>
       <View style={commonStyles.container1}>
@@ -30,7 +32,7 @@ const FirstTrimester = () => {
                 <Text style={styles.title}>Month 1</Text>
                 <Text style={styles.text1}>Embrace the magic of documenting your first month of pregnancy</Text>
 
-                <TouchableOpacity style={styles.icon}>
+                <TouchableOpacity style={styles.icon} onPress={() => navigation.navigate('Journal')}>
                   <Icon name="plus" type="entypo" size={30} color="#517fed" />
                 </TouchableOpacity>
               </View>
