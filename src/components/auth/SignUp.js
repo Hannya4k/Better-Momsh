@@ -10,6 +10,8 @@ import axios from 'axios';
 
 const SignUp = () => {
   const navigation = useNavigation();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const validationSchema = yup.object().shape({
     email: yup.string().email('Invalid email').required('Email is required'),
@@ -19,9 +21,23 @@ const SignUp = () => {
       .required('Retype Password is required'),
   });
 
-  const handleSubmit = (values) => {
-    navigation.navigate('Dashboard');
-    console.log('Form submitted with values:', values);
+  // const handleSubmit = (values) => {
+  //   navigation.navigate('Dashboard');
+  //   console.log('Form submitted with values:', values);
+  // };
+
+  const handleResgister = (values) => {
+    axios
+      .post('YOUR/URL', {
+        email: values.email,
+        password: values.password,
+      })
+      .then((res) => {
+        console.log('Server response: ', res);
+      })
+      .catch((err) => {
+        console.log('Server responded with error: ', err);
+      });
   };
 
   // const handleSubmit = () => {
@@ -47,7 +63,7 @@ const SignUp = () => {
           <Formik
             initialValues={{ email: '', password: '', retypePassword: '' }}
             validationSchema={validationSchema}
-            onSubmit={handleSubmit}
+            onSubmit={handleResgister}
           >
             {({ handleChange, handleSubmit, values, errors }) => (
               <View style={styles.form}>

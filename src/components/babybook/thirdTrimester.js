@@ -3,18 +3,18 @@ import React from 'react'
 import commonStyles from '../commonStyles'
 import { Icon } from '@rneui/themed';
 
-const FirstTrimester = () => {
+const ThirdTrimester = () => {
   return (
     <ScrollView>
       <View style={commonStyles.container1}>
 
         <Image source={require('../../components/assets/img/bgBabybook.png')} style={styles.bg} />
-        <Image source={require('../../components/assets/img/firstMonth.png')} style={styles.picture} />
+        <Image source={require('../../components/assets/img/thirdMonth.png')} style={styles.picture} />
 
         <View style={styles.header}>
           <View style={styles.textContainer}>
-            <Text style={styles.headerText}>1st Trimester</Text>
-            <Text style={styles.text}>Congratulations on the start of this incredible journey!</Text>
+            <Text style={styles.headerText}>3rd Trimester</Text>
+            <Text style={styles.text}>This phase brims with anticipation as your little one's arrival approaches.</Text>
           </View>
 
         </View>
@@ -25,10 +25,10 @@ const FirstTrimester = () => {
 
 
             <View style={styles.placeholder}>
-              <Image source={require('../../components/assets/img/monthOne.png')} style={styles.picture1} />
+              <Image source={require('../../components/assets/img/monthSeven.png')} style={styles.picture1} />
               <View style={styles.smallContainer}>
-                <Text style={styles.title}>Month 1</Text>
-                <Text style={styles.text1}>Embrace the magic of documenting your first month of pregnancy</Text>
+                <Text style={styles.title}>Month 7</Text>
+                <Text style={styles.text1}>Your 7th month is a time of anticipation</Text>
 
                 <TouchableOpacity style={styles.icon}>
                   <Icon name="plus" type="entypo" size={30} color="#517fed" />
@@ -37,10 +37,10 @@ const FirstTrimester = () => {
             </View>
 
             <View style={styles.placeholder}>
-              <Image source={require('../../components/assets/img/monthTwo.png')} style={styles.picture1} />
+              <Image source={require('../../components/assets/img/monthEight.png')} style={styles.picture1} />
               <View style={styles.smallContainer}>
-                <Text style={styles.title}>Month 2</Text>
-                <Text style={styles.text1}>As your body adapts to pregnancy, you'll notice physical changes.</Text>
+                <Text style={styles.title}>Month 8</Text>
+                <Text style={styles.text1}>This is a pivotal moment in your journey to motherhood.</Text>
 
                 <TouchableOpacity style={styles.icon}>
                   <Icon name="plus" type="entypo" size={30} color="#517fed" />
@@ -49,10 +49,10 @@ const FirstTrimester = () => {
             </View>
 
             <View style={styles.placeholder}>
-              <Image source={require('../../components/assets/img/monthThree.png')} style={styles.picture1} />
+              <Image source={require('../../components/assets/img/monthNine.png')} style={styles.picture1} />
               <View style={styles.smallContainer}>
-                <Text style={styles.title}>Month 3</Text>
-                <Text style={styles.text1}>Embrace the magic of documenting your first month of pregnancy.</Text>
+                <Text style={styles.title}>Month 9</Text>
+                <Text style={styles.text1}>Your baby's arrival is just around the corner!</Text>
 
                 <TouchableOpacity style={styles.icon}>
                   <Icon name="plus" type="entypo" size={30} color="#517fed" />
@@ -73,10 +73,9 @@ const FirstTrimester = () => {
   )
 }
 
-export default FirstTrimester
+export default ThirdTrimester
 
-const styles = StyleSheet.create({
-  textContainer: {
+const styles = StyleSheet.create({ textContainer: {
     width: 160,
     marginLeft: 200,
     marginTop: 20,
