@@ -10,8 +10,6 @@ import axios from 'axios';
 
 const SignUp = () => {
   const navigation = useNavigation();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
 
   const validationSchema = yup.object().shape({
     email: yup.string().email('Invalid email').required('Email is required'),
@@ -26,11 +24,21 @@ const SignUp = () => {
   //   console.log('Form submitted with values:', values);
   // };
 
-  const handleResgister = (values) => {
+  const handleRegister = (values) => {
     axios
-      .post('YOUR/URL', {
-        email: values.email,
-        password: values.password,
+      .post('http://192.168.0.17:5114/Auth/UserRegister', {
+        username: "tetestesa@gmail.com",
+        password: "4453",
+        salt: "4453",
+        FirstName: "Jans Dales",
+        LastName: "Topacios",
+        MiddleName: "Subidos",
+        Birthdate: "2003-01-13",
+        Religion: "Secrset",
+        Occupation: "Studsent",
+        RelationshipStatus: "Sangsul",
+        Address: "143 Pasgmamahal St.",
+        ContactNumber: 14320012
       })
       .then((res) => {
         console.log('Server response: ', res);
@@ -63,7 +71,7 @@ const SignUp = () => {
           <Formik
             initialValues={{ email: '', password: '', retypePassword: '' }}
             validationSchema={validationSchema}
-            onSubmit={handleResgister}
+            onSubmit={handleRegister}
           >
             {({ handleChange, handleSubmit, values, errors }) => (
               <View style={styles.form}>
@@ -105,7 +113,7 @@ const SignUp = () => {
                     </View>
                   </TouchableOpacity>
   
-                  <TouchableOpacity onPress={handleSubmit} style={styles.signupBtn}>
+                  <TouchableOpacity onPress={handleRegister} style={styles.signupBtn}>
                     <Text style={styles.signupText}>SIGN UP</Text>
                   </TouchableOpacity>
                 </View>
