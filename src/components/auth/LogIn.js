@@ -14,9 +14,24 @@ const LogIn = () => {
         password: yup.string().required('Password is required'),
     });
 
-    const handleSubmit = (values) => {
+    // const handleSubmit = (values) => {
       
-      console.log('Form submitted with values:', values);
+    //   console.log('Form submitted with values:', values);
+    // };
+
+    const handleLogin = () => {
+      axios
+        .post('URL', {
+          username: "tetestesa@gmail.com",
+          password: "4453",
+          salt: "4453",
+        })
+        .then((res) => {
+          console.log('Server response: ', res);
+        })
+        .catch((err) => {
+          console.log('Server responded with error: ', err);
+        });
     };
 
     // const handleSubmit = async (values) => {
@@ -39,7 +54,7 @@ const LogIn = () => {
             <Formik
                 initialValues={{ user: '', password: '' }}
                 validationSchema={validationSchema}
-                onSubmit={handleSubmit}
+                onSubmit={handleLogin}
             >
                 {({ handleChange, handleSubmit, values, errors }) => (
                     <View style={styles.form}>
@@ -64,7 +79,7 @@ const LogIn = () => {
                         {errors.password && <Text style={styles.errorText}>{errors.password}</Text>}
                         {/* onPress={handleSubmit} */}
                         {/* onPress={() => navigation.navigate('Dashboard')} */}
-                        <TouchableOpacity onPress={() => navigation.navigate('Dashboard')} style={styles.loginBtn}>
+                        <TouchableOpacity onPress={handleLogin} style={styles.loginBtn}>
                             <Text style={styles.loginText}>LOG IN</Text>
                         </TouchableOpacity>
                     </View>

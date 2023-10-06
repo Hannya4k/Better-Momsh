@@ -24,7 +24,7 @@ const SignUp = () => {
   //   console.log('Form submitted with values:', values);
   // };
 
-  const handleRegister = (values) => {
+  const handleRegister = () => {
     axios
       .post('http://192.168.0.17:5114/Auth/UserRegister', {
         username: "tetestesa@gmail.com",
