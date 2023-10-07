@@ -4,28 +4,20 @@ import { AsyncStorage } from '@react-native-async-storage/async-storage';
 import { Icon } from '@rneui/themed';
 import { useNavigation } from '@react-navigation/native';
 import commonStyles from '../components/commonStyles';
+import { useJournal } from '../components/babybook/Journal/journalContext';
 
 const Journal = () => {
     const navigation = useNavigation();
     // const [entries, setEntries] = useState([]);
+    const { entries } = useJournal();
 
-    // useEffect(() => {
-    //   loadEntries();
-    // }, []);
-  
-    // const loadEntries = async () => {
-    //   try {
-    //     const storedEntries = await AsyncStorage.getItem('journalEntries');
-    //     if (storedEntries !== null) {
-    //       setEntries(JSON.parse(storedEntries));
-    //     }
-    //   } catch (error) {
-    //     console.error('Error loading journal entries: ', error);
-    //   }
-    // };
-  
-    // const addEntry = (newEntry) => {
-    //   setEntries([...entries, newEntry]);
+    // const addEntry = (title, date, note) => {
+    //     const newEntry = {
+    //         title,
+    //         date,
+    //         note,
+    //     };
+    //     setEntries([...entries, newEntry]);
     // };
 
     return (
@@ -36,45 +28,35 @@ const Journal = () => {
                 </View>
 
                 <View style={styles.backBtn}>
-                <TouchableOpacity onPress={() => navigation.navigate('FirstTrimester')}>
-                  <Icon name="arrow-left" type="entypo" size={30} color="#517fed" />
-                </TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate('FirstTrimester')}>
+                        <Icon name="arrow-left" type="entypo" size={30} color="#517fed" />
+                    </TouchableOpacity>
                 </View>
-           
 
                 <View style={styles.header}>
                     <Text style={styles.headerText}>Month 1</Text>
                     <Text style={styles.text}>Embrace the magic of documenting your first month of pregnancy</Text>
                 </View>
 
+
                 <View style={styles.body}>
-                    <View style={styles.placeholder}>
-                    </View>
-                </View>
-                <View style={styles.body}>
-                    <View style={styles.placeholder}>
-                    </View>
-                </View>
-                <View style={styles.body}>
-                    <View style={styles.placeholder}>
-                    </View>
-                </View>
-                <View style={styles.body}>
-                    <View style={styles.placeholder}>
-                    </View>
-                </View>
-                {/* <TouchableOpacity style={styles.icon2} onPress={() => navigation.navigate('JournalCreate')}>
-                  <Icon name="circle" type="MaterialIcons" size={52} color="#517fed" />
-                </TouchableOpacity> */}
-                <TouchableOpacity style={styles.editBtn} onPress={() => navigation.navigate('JournalCreate')}>
-                <Icon name="edit" type="feather" size={22} color="white" />
-                </TouchableOpacity>
-                {/* <TouchableOpacity style={styles.editBtn} onPress={() => navigation.navigate('JournalCreate', { addEntry: addEntry })}>
-                <Icon name="edit" type="feather" size={22} color="white" />
-                </TouchableOpacity> */}
-                
+                    {entries.map((entry, index) => (
+                        <View style={styles.placeholder} key={index}>
+                            <Text style={styles.title}>{entry.title}</Text>
+                            <Text style={styles.date}>{entry.date}</Text>
+                            <Text style={styles.note}>{entry.note}</Text>
+                        </View>
+                    ))}
+              
+
             </View>
-        </ScrollView>
+
+            <TouchableOpacity style={styles.editBtn}  onPress={() => navigation.navigate('JournalCreate')}>
+                <Icon name="edit" type="feather" size={22} color="white" />
+            </TouchableOpacity>
+
+        </View>
+        </ScrollView >
     )
 }
 
@@ -112,7 +94,7 @@ const styles = StyleSheet.create({
     },
 
     placeholder: {
-        flexDirection: 'row',
+        padding: 15,
         width: 330,
         height: 143,
         backgroundColor: 'white',
@@ -121,30 +103,31 @@ const styles = StyleSheet.create({
         elevation: 10,
     },
 
- 
+    body: {
+        flexDirection: 'column',
+    },
     editBtn: {
         position: 'absolute',
-        top: 756,
-        right: 53,
+     
         borderRadius: 50,
         backgroundColor: 'blue',
         width: 40,
         height: 40,
         alignSelf: 'center'
     },
-    // icon2: {
-    //     position: 'absolute',
-    //     top: 741,
-    //     right: 39
-    // },
 
-    // container: {
-    //     flex: 1,
-    //     alignItems: 'center',
-    //     backgroundColor: '#fff',
-    //     height: '100%'    ,
-    //     width: '100%',
-    // },
-
+    title:{
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: 'black',
+        marginBottom: 5
+    },
+    date: {
+        fontSize: 12,
+        marginBottom: 15
+    },
+   note: {
+        fontSize: 12,
+    }
 
 })
