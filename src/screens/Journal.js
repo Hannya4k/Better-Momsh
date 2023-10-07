@@ -1,11 +1,33 @@
 import { ScrollView, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import { AsyncStorage } from '@react-native-async-storage/async-storage';
 import { Icon } from '@rneui/themed';
 import { useNavigation } from '@react-navigation/native';
 import commonStyles from '../components/commonStyles';
 
 const Journal = () => {
     const navigation = useNavigation();
+    // const [entries, setEntries] = useState([]);
+
+    // useEffect(() => {
+    //   loadEntries();
+    // }, []);
+  
+    // const loadEntries = async () => {
+    //   try {
+    //     const storedEntries = await AsyncStorage.getItem('journalEntries');
+    //     if (storedEntries !== null) {
+    //       setEntries(JSON.parse(storedEntries));
+    //     }
+    //   } catch (error) {
+    //     console.error('Error loading journal entries: ', error);
+    //   }
+    // };
+  
+    // const addEntry = (newEntry) => {
+    //   setEntries([...entries, newEntry]);
+    // };
+
     return (
         <ScrollView>
             <View style={commonStyles.container}>
@@ -44,17 +66,16 @@ const Journal = () => {
                 {/* <TouchableOpacity style={styles.icon2} onPress={() => navigation.navigate('JournalCreate')}>
                   <Icon name="circle" type="MaterialIcons" size={52} color="#517fed" />
                 </TouchableOpacity> */}
-                
-                <TouchableOpacity style={styles.icon1} onPress={() => navigation.navigate('JournalCreate')}>
-                  <Icon name="edit" type="feather" size={22} color="white" />
+                <TouchableOpacity style={styles.editBtn} onPress={() => navigation.navigate('JournalCreate')}>
+                <Icon name="edit" type="feather" size={22} color="white" />
                 </TouchableOpacity>
-              
-          
+                {/* <TouchableOpacity style={styles.editBtn} onPress={() => navigation.navigate('JournalCreate', { addEntry: addEntry })}>
+                <Icon name="edit" type="feather" size={22} color="white" />
+                </TouchableOpacity> */}
                 
             </View>
         </ScrollView>
     )
-
 }
 
 export default Journal
@@ -101,7 +122,7 @@ const styles = StyleSheet.create({
     },
 
  
-    icon1: {
+    editBtn: {
         position: 'absolute',
         top: 756,
         right: 53,
@@ -111,11 +132,11 @@ const styles = StyleSheet.create({
         height: 40,
         alignSelf: 'center'
     },
-    icon2: {
-        position: 'absolute',
-        top: 741,
-        right: 39
-    },
+    // icon2: {
+    //     position: 'absolute',
+    //     top: 741,
+    //     right: 39
+    // },
 
     // container: {
     //     flex: 1,
