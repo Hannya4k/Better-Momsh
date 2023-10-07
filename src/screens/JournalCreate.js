@@ -2,12 +2,13 @@ import { ScrollView, StyleSheet, Text, View, Image, TouchableOpacity, TextInput 
 import React from 'react'
 import { Icon } from '@rneui/themed';
 import { useNavigation } from '@react-navigation/native';
+import commonStyles from '../components/commonStyles';
 
 // const JournalCreate = ({ route, navigation }) => {
 const JournalCreate = () => {
     // const { addEntry } = route.params;
-    
-const navigation = useNavigation();
+
+    const navigation = useNavigation();
     // const saveEntry = () => {
     //   const newEntry = {
     //     id: uuidv4(),
@@ -15,9 +16,9 @@ const navigation = useNavigation();
     //     subtitle,
     //     body,
     //   };
-  
+
     //   addEntry(newEntry);
-  
+
     //   AsyncStorage.setItem('journalEntries', JSON.stringify([...entries, newEntry]))
     //     .then(() => {
     //       navigation.navigate('Journal');
@@ -26,103 +27,84 @@ const navigation = useNavigation();
     //       console.error('Error saving journal entry: ', error);
     //     });
     // };
-    return(
+    return (
         <ScrollView>
-            <View style={styles.container}>
-                <View>
-                    <Image source={require('../../assets/bg-graphic.png')} style={styles.bg} />
-                </View>
-                <TouchableOpacity style={styles.backBtn} onPress={() => navigation.navigate('Journal')}>
-                  <Icon name="arrow-left" type="entypo" size={30} color="#517fed" />
-                </TouchableOpacity>
-                {/* <TouchableOpacity style={styles.icon2}>
+            <View style={commonStyles.container}>
+
+                <View style={styles.btnContainer}>
+                    <TouchableOpacity style={styles.backBtn} onPress={() => navigation.navigate('Journal')}>
+                        <Icon name="arrow-left" type="entypo" size={30} color="#517fed" />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.btn}>
                   <Icon name="undo-variant" type="materialcommunityicons" size={30} color="#517fed" />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.icon3}>
+                <TouchableOpacity style={styles.btn}>
                   <Icon name="redo-variant" type="MaterialCommunityIcons" size={30} color="#517fed" />
-                </TouchableOpacity> */}
-                <TouchableOpacity style={styles.doneBtn} onPress={() => navigation.navigate('Journal')}>
-                  <Icon name="check" type="Octicons" size={30} color="#517fed" />
                 </TouchableOpacity>
-                
-                <View style={styles.header}>
-                        <TextInput
-                            style={styles.headerText}
-                            placeholder='Add Title'
-                        />
-                        {/* {errors.user && <Text style={styles.errorText}>{errors.user}</Text>} */}
-                        <Text style={styles.subtext}>Date</Text>
-                        <TextInput
-                            style={styles.subtext}
-                            placeholder='Body'
-                        />
-                        {/* {errors.user && <Text style={styles.errorText}>{errors.user}</Text>} */}
-                </View>     
+                    <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('Journal')}>
+                        <Icon name="check" type="Octicons" size={30} color="#517fed" />
+                    </TouchableOpacity>
+                </View>
+
+
+                <View style={styles.textContainer}>
+                    <TextInput
+                        style={styles.headerInput}
+                        placeholder='Add Title'
+                    />
+
+                    <Text style={styles.date}>Date</Text>
+                    <TextInput
+                        style={styles.pInput}
+                        placeholder='Body'
+                    />
+                </View>
 
             </View>
         </ScrollView>
     )
-       
+
 }
 
 export default JournalCreate
 
 const styles = StyleSheet.create({
-    placeholder: {
+    btnContainer: {
         flexDirection: 'row',
-        width: 330,
-        height: 143,
-        backgroundColor: 'white',
-        marginBottom: 30,
-        borderRadius: 23,
-        elevation: 10,
-    },
-    subtext: {
-        color: '##424242',
-        fontSize: 12,
-        alignItems: 'center',
-        fontWeight: '400',
-        height: '32',
-        width: '242',
-        marginBottom: 20,
-    },
-    text: {
-        color: 'black',
-        fontSize: 12,
-        alignItems: 'center',
-        fontWeight: '400',
+        marginTop: 50,
     },
     backBtn: {
-        marginTop: 52,
-        marginLeft: -300,
+        marginRight: 200
     },
-    doneBtn: {
-        position: 'absolute',
-        top: 756,
-        right: 53
+    btn: {
+        marginLeft: 20,
     },
-    bg: {
-        position: 'absolute',
-        left: -120,
-        opacity: 0.5,
-      },
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        backgroundColor: '#fff',
-        height: '100%'    ,
-        width: '100%',
+    headerInput: {
+        fontSize: 32,
+        fontFamily: 'Lato-Bold',
+        fontWeight: '700',
+        width: 350,
+        height: 56,
+        paddingBottom: 5,
+        marginTop: 10,
     },
-    header: {
+    date: {
+        fontSize: 12,
+        marginLeft: 10
+    },
+    pInput: {
+        borderWidth: 1,
+        marginTop: 10,
+        width: 350,
+        height: 500,
+        fontSize: 12,
+        fontFamily: 'Lato-Bold',
+        fontWeight: '400',
+    },
+
+    textContainer: {
         marginBottom: 50,
     },
-    headerText: {
-        color: '#F08C8A',
-        fontSize: 32,
-        fontFamily: 'Lato-Regular',
-        marginBottom: 8,
-       
-        fontWeight: '700'
-    },
-   
+
+
 })
