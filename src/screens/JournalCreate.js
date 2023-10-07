@@ -1,32 +1,29 @@
 import { ScrollView, StyleSheet, Text, View, Image, TouchableOpacity, TextInput } from 'react-native'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Icon } from '@rneui/themed';
 import { useNavigation } from '@react-navigation/native';
 import commonStyles from '../components/commonStyles';
 
-// const JournalCreate = ({ route, navigation }) => {
 const JournalCreate = () => {
-    // const { addEntry } = route.params;
-
     const navigation = useNavigation();
-    // const saveEntry = () => {
-    //   const newEntry = {
-    //     id: uuidv4(),
-    //     title,
-    //     subtitle,
-    //     body,
-    //   };
+    const [currentDateTime, setCurrentDateTime] = useState('');
 
-    //   addEntry(newEntry);
+    useEffect(() => {
+        const now = new Date();
+        const monthNames = [
+            'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+          ];
 
-    //   AsyncStorage.setItem('journalEntries', JSON.stringify([...entries, newEntry]))
-    //     .then(() => {
-    //       navigation.navigate('Journal');
-    //     })
-    //     .catch((error) => {
-    //       console.error('Error saving journal entry: ', error);
-    //     });
-    // };
+          const hours = now.getHours();
+          const minutes = now.getMinutes();
+          const ampm = hours >= 12 ? 'PM' : 'AM';
+        
+        const formattedDate = `${now.getDate()} ${monthNames[now.getMonth()]} ${now.getFullYear()},`;
+        const formattedTime = `${hours % 12 || 12}:${minutes.toString().padStart(2, '0')} ${ampm}`;
+
+        setCurrentDateTime(`${formattedDate} ${formattedTime}`);
+    }, []);
     return (
         <ScrollView>
             <View style={commonStyles.container}>
@@ -36,10 +33,10 @@ const JournalCreate = () => {
                         <Icon name="arrow-left" type="entypo" size={30} color="#517fed" />
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.btn}>
-                  <Icon name="undo-variant" type="materialcommunityicons" size={30} color="#517fed" />
+                  <Icon name="undo-variant" type="material-community" size={30} color="#517fed" />
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.btn}>
-                  <Icon name="redo-variant" type="MaterialCommunityIcons" size={30} color="#517fed" />
+                  <Icon name="redo-variant" type="material-community" size={30} color="#517fed" />
                 </TouchableOpacity>
                     <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('Journal')}>
                         <Icon name="check" type="Octicons" size={30} color="#517fed" />
@@ -53,10 +50,12 @@ const JournalCreate = () => {
                         placeholder='Add Title'
                     />
 
-                    <Text style={styles.date}>Date</Text>
+                    <Text style={styles.date}>{currentDateTime}</Text>
+                  
                     <TextInput
                         style={styles.pInput}
-                        placeholder='Body'
+                        placeholder='Note'
+                        multiline={true}
                     />
                 </View>
 
@@ -93,18 +92,19 @@ const styles = StyleSheet.create({
         marginLeft: 10
     },
     pInput: {
-        borderWidth: 1,
         marginTop: 10,
-        width: 350,
-        height: 500,
+        // width: 350,
         fontSize: 12,
         fontFamily: 'Lato-Bold',
         fontWeight: '400',
+        height: 660,
+        textAlignVertical: "top",
+        // borderWidth: 1
     },
-
     textContainer: {
-        marginBottom: 50,
+        height: '100%',
+        marginBottom: 10,
     },
-
-
+ 
+ 
 })
