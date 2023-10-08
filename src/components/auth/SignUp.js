@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ScrollView, StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from 'react-native';
 import { Formik } from 'formik';
 import * as yup from 'yup';
@@ -10,12 +10,14 @@ import axios from 'axios';
 
 const SignUp = () => {
   const navigation = useNavigation();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const validationSchema = yup.object().shape({
     email: yup.string().email('Invalid email').required('Email is required'),
     password: yup.string().required('Password is required'),
     retypePassword: yup.string()
-      .oneOf([yup.ref('password'), null], 'Passwords must match')
+      .oneOf([yup.ref('passwordzz'), null], 'Passwords must match')
       .required('Retype Password is required'),
   });
 
@@ -24,41 +26,18 @@ const SignUp = () => {
   //   console.log('Form submitted with values:', values);
   // };
 
-  const handleSubmit = async (values) => {
+  const handleResgister = (values) => {
     axios
-      .post('http://192.168.0.17:5114/Auth/UserRegister', {
-        username: values.email,
+      .post('YOUR/URL', {
+        email: values.email,
         password: values.password,
-        salt: values.password,
-        FirstName: "Jans Dales",
-        LastName: "Topacios",
-        MiddleName: "Subidos",
-        Birthdate: "2003-01-13",
-        Religion: "Secrset",
-        Occupation: "Studsent",
-        RelationshipStatus: "Sangsul",
-        Address: "143 Pasgmamahal St.",
-        ContactNumber: 14320012
       })
       .then((res) => {
         console.log('Server response: ', res);
       })
       .catch((err) => {
-        if (err.response && err.response.data && err.response.data.responseData) {
-          const error = err.response.data.responseData;
-          console.log('Server responded with error:', error);
-          // Handle specific error messages here
-          if (error === 'Username already exists') {
-            // Username Exists
-          } 
-          else {
-            // Other error
-          }
-        } else {
-          console.log('Server responded with an unexpected error:', err);
-        }
+        console.log('Server responded with error: ', err);
       });
-    
   };
 
   // const handleSubmit = () => {
@@ -84,7 +63,7 @@ const SignUp = () => {
           <Formik
             initialValues={{ email: '', password: '', retypePassword: '' }}
             validationSchema={validationSchema}
-            onSubmit={values => handleSubmit(values)}
+            onSubmit={handleResgister}
           >
             {({ handleChange, handleSubmit, values, errors }) => (
               <View style={styles.form}>
@@ -99,7 +78,7 @@ const SignUp = () => {
                   keyboardType='email-address'
                 />
                 {errors.email && <Text style={styles.errorText}>{errors.email}</Text>}
-  
+
                 <TextInput
                   style={styles.input}
                   placeholder='Password'
@@ -245,3 +224,4 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
 });
+

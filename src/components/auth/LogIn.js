@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { useNavigation } from '@react-navigation/native';
@@ -7,6 +7,8 @@ import commonStyles from '../commonStyles';
 import axios from 'axios';
 
 const LogIn = () => {
+  const [errorMessage, setErrorMessage] = useState('');
+
     const navigation = useNavigation();
 
     const validationSchema = yup.object().shape({
@@ -33,6 +35,7 @@ const LogIn = () => {
           if (err.response && err.response.data && err.response.data.responseData) {
             const error = err.response.data.responseData;
             console.log('Server responded with error:', error);
+            setErrorMessage('Server responded with error: ' + error);
             // Handle specific error messages here
             if (error === 'Username Doesn\'t Exist') {
               // Username Doesn't exist
@@ -43,9 +46,38 @@ const LogIn = () => {
             }
           } else {
             console.log('Server responded with an unexpected error:', err);
+            setErrorMessage('Server responded with an unexpected error');
           }
         });
     };
+    // Jandale orig
+    // const handleSubmit = (values) => {
+    //   axios
+    //     .post('http://192.168.0.17:5114/Auth/UserLogin', {
+    //       username: values.user,
+    //       password: values.password
+    //     })
+    //     .then((res) => {
+    //       console.log('Server response: ', res);
+    //       navigation.navigate('Dashboard');
+    //     })
+    //     .catch((err) => {
+    //       if (err.response && err.response.data && err.response.data.responseData) {
+    //         const error = err.response.data.responseData;
+    //         console.log('Server responded with error:', error);
+    //         // Handle specific error messages here
+    //         if (error === 'Username Doesn\'t Exist') {
+    //           // Username Doesn't exist
+    //         } else if (error === 'Wrong Password') {
+    //           // Wrong password
+    //         } else {
+    //           // Other error
+    //         }
+    //       } else {
+    //         console.log('Server responded with an unexpected error:', err);
+    //       }
+    //     });
+    // };
 
     // const handleSubmit = async (values) => {
     //   try {
@@ -105,7 +137,8 @@ const LogIn = () => {
                 <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
                     <Text style={styles.signupText}> SIGN UP</Text>
                 </TouchableOpacity>
-            </View>
+            </View> 
+            {errorMessage && (<Text style={styles.errorText}>{errorMessage}</Text>)}
         </View>
     )
 }
