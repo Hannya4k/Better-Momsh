@@ -44,7 +44,19 @@ const SignUp = () => {
         console.log('Server response: ', res);
       })
       .catch((err) => {
-        console.log('Server responded with error: ', err);
+        if (err.response && err.response.data && err.response.data.responseData) {
+          const error = err.response.data.responseData;
+          console.log('Server responded with error:', error);
+          // Handle specific error messages here
+          if (error === 'Username already exists') {
+            // Username Exists
+          } 
+          else {
+            // Other error
+          }
+        } else {
+          console.log('Server responded with an unexpected error:', err);
+        }
       });
     
   };

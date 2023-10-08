@@ -30,7 +30,20 @@ const LogIn = () => {
           navigation.navigate('Dashboard');
         })
         .catch((err) => {
-          console.log('Server responded with error: ', err);
+          if (err.response && err.response.data && err.response.data.responseData) {
+            const error = err.response.data.responseData;
+            console.log('Server responded with error:', error);
+            // Handle specific error messages here
+            if (error === 'Username Doesn\'t Exist') {
+              // Username Doesn't exist
+            } else if (error === 'Wrong Password') {
+              // Wrong password
+            } else {
+              // Other error
+            }
+          } else {
+            console.log('Server responded with an unexpected error:', err);
+          }
         });
     };
 
