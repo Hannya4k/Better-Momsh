@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ScrollView, StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from 'react-native';
 import { Formik } from 'formik';
 import * as yup from 'yup';
@@ -17,7 +17,7 @@ const SignUp = () => {
     email: yup.string().email('Invalid email').required('Email is required'),
     password: yup.string().required('Password is required'),
     retypePassword: yup.string()
-      .oneOf([yup.ref('password'), null], 'Passwords must match')
+      .oneOf([yup.ref('passwordzz'), null], 'Passwords must match')
       .required('Retype Password is required'),
   });
 
@@ -78,7 +78,7 @@ const SignUp = () => {
                   keyboardType='email-address'
                 />
                 {errors.email && <Text style={styles.errorText}>{errors.email}</Text>}
-  
+
                 <TextInput
                   style={styles.input}
                   placeholder='Password'
