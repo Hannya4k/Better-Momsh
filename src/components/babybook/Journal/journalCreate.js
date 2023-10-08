@@ -14,6 +14,7 @@ const JournalCreate = () => {
     const [title, setTitle] = useState('');
     const [note, setNote] = useState('');
     // const [selectedImage, setSelectedImage] = useState(null);
+    
 
     useEffect(() => {
         const now = new Date();

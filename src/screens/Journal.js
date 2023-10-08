@@ -8,17 +8,13 @@ import { useJournal } from '../components/babybook/Journal/journalContext';
 
 const Journal = () => {
     const navigation = useNavigation();
-    // const [entries, setEntries] = useState([]);
     const { entries } = useJournal();
 
-    // const addEntry = (title, date, note) => {
-    //     const newEntry = {
-    //         title,
-    //         date,
-    //         note,
-    //     };
-    //     setEntries([...entries, newEntry]);
-    // };
+    const handleEditClick = () => {
+   
+        navigation.navigate('JournalCreate');
+    };
+
 
     return (
         <ScrollView>
@@ -28,7 +24,7 @@ const Journal = () => {
                 </View>
 
                 <View style={styles.backBtn}>
-                    <TouchableOpacity onPress={() => navigation.navigate('FirstTrimester')}>
+                    <TouchableOpacity onPress={() => navigation.navigate('Dashboard')}>
                         <Icon name="arrow-left" type="entypo" size={30} color="#517fed" />
                     </TouchableOpacity>
                 </View>
@@ -41,21 +37,31 @@ const Journal = () => {
 
                 <View style={styles.body}>
                     {entries.map((entry, index) => (
+                        <TouchableOpacity
+                            style={styles.placeholder}
+                            key={index}
+                            onPress={() => handleEditClick(entry)}>
+                            <Text style={styles.title}>{entry.title}</Text>
+                            <Text style={styles.date}>{entry.date}</Text>
+                            <Text style={styles.note}>{entry.note}</Text>
+                        </TouchableOpacity>
+                    ))}
+                    {/* {entries.map((entry, index) => (
                         <View style={styles.placeholder} key={index}>
                             <Text style={styles.title}>{entry.title}</Text>
                             <Text style={styles.date}>{entry.date}</Text>
                             <Text style={styles.note}>{entry.note}</Text>
                         </View>
-                    ))}
-              
+                    ))} */}
+
+
+                </View>
+
+                <TouchableOpacity style={styles.editBtn} onPress={() => navigation.navigate('JournalCreate')}>
+                    <Icon name="edit" type="feather" size={22} color="white" />
+                </TouchableOpacity>
 
             </View>
-
-            <TouchableOpacity style={styles.editBtn}  onPress={() => navigation.navigate('JournalCreate')}>
-                <Icon name="edit" type="feather" size={22} color="white" />
-            </TouchableOpacity>
-
-        </View>
         </ScrollView >
     )
 }
@@ -96,7 +102,7 @@ const styles = StyleSheet.create({
     placeholder: {
         padding: 15,
         width: 330,
-        height: 143,
+        height: 'auto',
         backgroundColor: 'white',
         marginBottom: 30,
         borderRadius: 23,
@@ -105,18 +111,22 @@ const styles = StyleSheet.create({
 
     body: {
         flexDirection: 'column',
-    },
-    editBtn: {
-        position: 'absolute',
-     
-        borderRadius: 50,
-        backgroundColor: 'blue',
-        width: 40,
-        height: 40,
-        alignSelf: 'center'
+        height: '100%',
+        
     },
 
-    title:{
+    editBtn: {
+        position: 'absolute',
+        right: 30,
+        bottom: 30,
+        borderRadius: 50,
+        backgroundColor: '#517FED',
+        width: 40,
+        height: 40,
+        padding: 6
+    },
+
+    title: {
         fontSize: 16,
         fontWeight: 'bold',
         color: 'black',
@@ -126,7 +136,7 @@ const styles = StyleSheet.create({
         fontSize: 12,
         marginBottom: 15
     },
-   note: {
+    note: {
         fontSize: 12,
     }
 

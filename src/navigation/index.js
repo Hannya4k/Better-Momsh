@@ -31,6 +31,7 @@ function AppNavigator() {
         <Stack.Screen name="LogIn" component={LogIn} options={{ header: () => null }} />
         <Stack.Screen name="SignUp" component={SignUp} options={{ header: () => null }} />
         <Stack.Screen name="Dashboard" component={DashboardStackScreen} options={{ header: () => null }} />
+        
         <Stack.Screen name="FirstTrimester" component={FirstTrimester} options={{ header: () => null }} />
         <Stack.Screen name="SecondTrimester" component={SecondTrimester} options={{ header: () => null }} />
         <Stack.Screen name="ThirdTrimester" component={ThirdTrimester} options={{ header: () => null }} />
