@@ -24,12 +24,12 @@ const SignUp = () => {
   //   console.log('Form submitted with values:', values);
   // };
 
-  const handleRegister = () => {
+  const handleSubmit = async (values) => {
     axios
       .post('http://192.168.0.17:5114/Auth/UserRegister', {
-        username: "tetestesa@gmail.com",
-        password: "4453",
-        salt: "4453",
+        username: values.email,
+        password: values.password,
+        salt: values.password,
         FirstName: "Jans Dales",
         LastName: "Topacios",
         MiddleName: "Subidos",
@@ -46,6 +46,7 @@ const SignUp = () => {
       .catch((err) => {
         console.log('Server responded with error: ', err);
       });
+    
   };
 
   // const handleSubmit = () => {
@@ -71,7 +72,7 @@ const SignUp = () => {
           <Formik
             initialValues={{ email: '', password: '', retypePassword: '' }}
             validationSchema={validationSchema}
-            onSubmit={handleRegister}
+            onSubmit={values => handleSubmit(values)}
           >
             {({ handleChange, handleSubmit, values, errors }) => (
               <View style={styles.form}>
@@ -113,7 +114,7 @@ const SignUp = () => {
                     </View>
                   </TouchableOpacity>
   
-                  <TouchableOpacity onPress={handleRegister} style={styles.signupBtn}>
+                  <TouchableOpacity onPress={handleSubmit} style={styles.signupBtn}>
                     <Text style={styles.signupText}>SIGN UP</Text>
                   </TouchableOpacity>
                 </View>
@@ -232,4 +233,3 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
 });
-

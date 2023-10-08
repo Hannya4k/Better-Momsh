@@ -19,15 +19,15 @@ const LogIn = () => {
     //   console.log('Form submitted with values:', values);
     // };
 
-    const handleLogin = () => {
+    const handleSubmit = (values) => {
       axios
-        .post('URL', {
-          username: "tetestesa@gmail.com",
-          password: "4453",
-          salt: "4453",
+        .post('http://192.168.0.17:5114/Auth/UserLogin', {
+          username: values.user,
+          password: values.password
         })
         .then((res) => {
           console.log('Server response: ', res);
+          navigation.navigate('Dashboard');
         })
         .catch((err) => {
           console.log('Server responded with error: ', err);
@@ -54,7 +54,7 @@ const LogIn = () => {
             <Formik
                 initialValues={{ user: '', password: '' }}
                 validationSchema={validationSchema}
-                onSubmit={handleLogin}
+                onSubmit={values => handleSubmit(values)}
             >
                 {({ handleChange, handleSubmit, values, errors }) => (
                     <View style={styles.form}>
@@ -79,7 +79,7 @@ const LogIn = () => {
                         {errors.password && <Text style={styles.errorText}>{errors.password}</Text>}
                         {/* onPress={handleSubmit} */}
                         {/* onPress={() => navigation.navigate('Dashboard')} */}
-                        <TouchableOpacity onPress={handleLogin} style={styles.loginBtn}>
+                        <TouchableOpacity onPress={handleSubmit} style={styles.loginBtn}>
                             <Text style={styles.loginText}>LOG IN</Text>
                         </TouchableOpacity>
                     </View>
