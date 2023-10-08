@@ -2,8 +2,10 @@ import { ScrollView, StyleSheet, Text, View, Image, TouchableOpacity } from 'rea
 import React from 'react'
 import commonStyles from '../commonStyles'
 import { Icon } from '@rneui/themed';
+import { useNavigation } from '@react-navigation/native';
 
 const FirstTrimester = () => {
+  const navigation = useNavigation();
   return (
     <ScrollView>
       <View style={commonStyles.container1}>
@@ -11,18 +13,22 @@ const FirstTrimester = () => {
         <Image source={require('../../components/assets/img/bgBabybook.png')} style={styles.bg} />
         <Image source={require('../../components/assets/img/firstMonth.png')} style={styles.picture} />
 
+                <View style={styles.backBtn}>
+                    <TouchableOpacity onPress={() => navigation.navigate('FirstTrimester')}>
+                        <Icon name="arrow-left" type="entypo" size={25} color="#517fed" />
+                    </TouchableOpacity>
+                </View>
+
         <View style={styles.header}>
           <View style={styles.textContainer}>
             <Text style={styles.headerText}>1st Trimester</Text>
             <Text style={styles.text}>Congratulations on the start of this incredible journey!</Text>
           </View>
-
         </View>
 
 
         <View style={styles.body}>
           <View style={styles.bodyContainer}>
-
 
             <View style={styles.placeholder}>
               <Image source={require('../../components/assets/img/monthOne.png')} style={styles.picture1} />
@@ -30,7 +36,7 @@ const FirstTrimester = () => {
                 <Text style={styles.title}>Month 1</Text>
                 <Text style={styles.text1}>Embrace the magic of documenting your first month of pregnancy</Text>
 
-                <TouchableOpacity style={styles.icon}>
+                <TouchableOpacity style={styles.icon} onPress={() => navigation.navigate('Journal')}>
                   <Icon name="plus" type="entypo" size={30} color="#517fed" />
                 </TouchableOpacity>
               </View>
@@ -59,8 +65,6 @@ const FirstTrimester = () => {
                 </TouchableOpacity>
               </View>
             </View>
-
-
 
           </View>
           <Image source={require('../../components/assets/img/bg-graphic-bb.png')} style={styles.bg1} />
@@ -158,4 +162,16 @@ const styles = StyleSheet.create({
     marginLeft: 140,
     marginBottom: 1000,
   },
+  backBtn: {
+    position: 'absolute',
+    left: 30,
+    top: 0,
+    marginTop: 20,
+    marginRight: 310,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    width: 30,
+    height: 30,
+    padding: 2
+},
 }) 

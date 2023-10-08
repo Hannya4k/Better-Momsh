@@ -14,27 +14,36 @@ import PregnancyBook from '../screens/PregnancyBook';
 import FirstTrimester from '../components/babybook/firstTrimester';
 import SecondTrimester from '../components/babybook/secondTrimester';
 import ThirdTrimester from '../components/babybook/thirdTrimester';
+import Journal from '../screens/Journal';
+import JournalCreate from '../components/babybook/Journal/journalCreate';
+import { JournalProvider } from '../components/babybook/Journal/journalContext';
+
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 function AppNavigator() {
   return (
+    <JournalProvider>
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Auth">
         <Stack.Screen name="Auth" component={Authentication} options={{ header: () => null }} />
         <Stack.Screen name="LogIn" component={LogIn} options={{ header: () => null }} />
         <Stack.Screen name="SignUp" component={SignUp} options={{ header: () => null }} />
+        <Stack.Screen name="Dashboard" component={DashboardStackScreen} options={{ header: () => null }} />
+        
         <Stack.Screen name="FirstTrimester" component={FirstTrimester} options={{ header: () => null }} />
         <Stack.Screen name="SecondTrimester" component={SecondTrimester} options={{ header: () => null }} />
         <Stack.Screen name="ThirdTrimester" component={ThirdTrimester} options={{ header: () => null }} />
-        <Stack.Screen name="Dashboard" component={DashboardStackScreen} options={{ header: () => null }} />
+        <Stack.Screen name="Journal" component={Journal} options={{ header: () => null }} />
+        <Stack.Screen name="JournalCreate" component={JournalCreate} options={{ header: () => null }} />
       </Stack.Navigator>
       {/* <Tab.Navigator>
       <Tab.Screen name="Home" component={Dashboard} />
       <Tab.Screen name="Profile" component={UnavailablePage} />
     </Tab.Navigator> */}
     </NavigationContainer>
+    </JournalProvider>
   );
 }
 
