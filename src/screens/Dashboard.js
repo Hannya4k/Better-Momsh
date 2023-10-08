@@ -1,6 +1,7 @@
 import { ScrollView, StyleSheet, Text, View, TextInput, Image, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react';
 import commonStyles from '../components/commonStyles'
+import { BottomTabBar } from '@react-navigation/bottom-tabs';
 
 
 const Dashboard = () => {
@@ -11,10 +12,10 @@ const Dashboard = () => {
     };
 
     return (
-        <ScrollView style={styles.container}>
+        <ScrollView >
             <View style={commonStyles.container1}>
 
-                {/* <Image source={require('../../assets/bg-dashboard.png')} style={styles.bg} /> */}
+                <Image source={require('../../assets/bg-dashboard.png')} style={styles.bg} />
                 <TextInput
                     style={styles.searchBar}
                     placeholder="Search"
@@ -45,9 +46,6 @@ const Dashboard = () => {
                     </TouchableOpacity>
                 </View>
 
-                <View style={styles.placeholder}>
-                    <Text>test</Text>
-                </View>
 
                 <View style={styles.placeholder}>
                     <Text>test</Text>
@@ -57,7 +55,19 @@ const Dashboard = () => {
                     <Text>test</Text>
                 </View>
 
-                <Text style={styles.headerText}>Recent Appointment</Text>
+                <View style={styles.placeholder}>
+                    <Text>test</Text>
+                </View>
+
+                <View style={styles.footer}>
+                    <Text style={styles.headerText}>Recent Appointment</Text>
+                </View>
+
+                <View style={styles.foot}>
+                    <View style={styles.history}>
+                        <Text>test</Text>
+                    </View>
+                </View>
 
             </View>
         </ScrollView>
@@ -71,12 +81,9 @@ const styles = StyleSheet.create({
     bg: {
         position: 'absolute',
         left: 0,
-        bottom: 0
-    },
-
-    container: {
-
-        height: 600,
+        bottom: -110,
+        width: 419,
+        height: 500,
     },
     searchBar: {
         marginTop: 30,
@@ -93,8 +100,9 @@ const styles = StyleSheet.create({
     },
     header: {
         width: 350,
-
+        marginBottom: 40
     },
+  
     headerText: {
         color: 'white',
         fontSize: 28,
@@ -108,20 +116,22 @@ const styles = StyleSheet.create({
     },
     btnContainer: {
         flexDirection: 'row',
-        margin: 10
+        margin: 10,
     },
     btn: {
-        margin: 40,
+        marginRight: 35,
+        marginLeft: 35,
         marginBottom: 10,
     },
     btnText: {
         fontSize: 18,
         fontWeight: '600',
         color: '#fff',
-        fontFamily: 'Lato-Bold'
+        fontFamily: 'Lato-Bold',
+        marginBottom: 5,
     },
     clickedBtn: {
-        borderBottomWidth: 2, 
+        borderBottomWidth: 2,
         borderBottomColor: '#FDC380',
     },
     placeholder: {
@@ -130,5 +140,21 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         marginBottom: 30,
         borderRadius: 20
+    },
+    history: {
+        marginTop: 12,
+        width: 330,
+        height: 100,
+        backgroundColor: 'white',
+        marginBottom: 30,
+        borderRadius: 20,
+    },
+    footer: {
+        width: 350,
+        marginBottom: 3,
+    },
+    foot: {
+        marginBottom: 17
     }
+
 })
