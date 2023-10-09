@@ -17,7 +17,7 @@ const SignUp = () => {
     email: yup.string().email('Invalid email').required('Email is required'),
     password: yup.string().required('Password is required'),
     retypePassword: yup.string()
-      .oneOf([yup.ref('passwordzz'), null], 'Passwords must match')
+      .oneOf([yup.ref('password'), null], 'Passwords must match')
       .required('Retype Password is required'),
   });
 
@@ -26,11 +26,21 @@ const SignUp = () => {
   //   console.log('Form submitted with values:', values);
   // };
 
-  const handleResgister = (values) => {
+  const handleSubmit = (values) => {
     axios
-      .post('YOUR/URL', {
-        email: values.email,
+      .post('http://192.168.152.82:5114/Auth/UserRegister', {
+        username: values.email,
         password: values.password,
+        salt: values.password,
+        FirstName: "Jans Dales",
+        LastName: "Topacios",
+        MiddleName: "Subidos",
+        Birthdate: "2003-01-13",
+        Religion: "Secrset",
+        Occupation: "Studsent",
+        RelationshipStatus: "Sangsul",
+        Address: "143 Pasgmamahal St.",
+        ContactNumber: 14320012
       })
       .then((res) => {
         console.log('Server response: ', res);
@@ -63,7 +73,7 @@ const SignUp = () => {
           <Formik
             initialValues={{ email: '', password: '', retypePassword: '' }}
             validationSchema={validationSchema}
-            onSubmit={handleResgister}
+            onSubmit={values => handleSubmit(values)}
           >
             {({ handleChange, handleSubmit, values, errors }) => (
               <View style={styles.form}>

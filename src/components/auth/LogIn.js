@@ -23,9 +23,9 @@ const LogIn = () => {
 
     const handleSubmit = (values) => {
       axios
-        .post('http://192.168.0.17:5114/Auth/UserLogin', {
+        .post('http://192.168.152.82:5114/Auth/UserLogin', {
           username: values.user,
-          password: values.password
+          password: values.password,
         })
         .then((res) => {
           console.log('Server response: ', res);
